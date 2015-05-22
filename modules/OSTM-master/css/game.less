@@ -1,0 +1,115 @@
+body,
+html {
+    user-select: none;
+    user-drag: none;
+
+    font-family: arial;
+}
+
+div {
+    margin: 0px;
+    padding: 0px;
+}
+
+.game-container {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    min-width: 800px;
+    min-height: 600px;
+}
+
+@headerHeight: 64px;
+
+.header-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: @headerHeight;
+    background-color: #777;
+    box-shadow: 0px 0px 22px #111 inset;
+    .scrolls;
+}
+
+.body-container {
+    position: absolute;
+    top: 64px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+@statWidth: 240px;
+
+.stat-bar {
+    float: left;
+    width: @statWidth;
+    height: 100%;
+    background: linear-gradient(70deg, #164, #3ac);
+    white-space: nowrap;
+}
+
+.shadow {
+    box-shadow: 0px 0px 70px #222 inset;
+}
+
+.version {
+    @fontSize: 24px;
+    position: absolute;
+    top: (@headerHeight - @fontSize) / 2;
+    right: 30px;
+    font-size: @fontSize;
+    font-weight: bold;
+    color: #ccc;
+    .outlined;
+    vertical-align: middle;
+
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.update {
+    position: absolute;
+    bottom: 45px;
+    right: 85px;
+    background-color: #f8c030;
+    border-radius: 12px;
+    border: 1px solid #000;
+    min-width: 240px;
+    min-height: 100px;
+    padding: 6px;
+    color: #853;
+    box-shadow: 1px 2px 12px -3px black;
+
+    h4 {
+        margin: 0px;
+    }
+}
+
+.game-log {
+    position: absolute;
+    left: @statWidth;
+    right: @itemBarWidth;
+    bottom: 60px;
+    z-index: 20;
+
+    text-align: center;
+    font-size: 24px;
+    pointer-events: none;
+}
+
+.saveArea {
+    min-width: 75%;
+    min-height: 120px;
+    vertical-align: middle;
+    .scrolls;
+    user-select: auto;
+    user-drag: auto;
+    word-wrap: break-word;
+}

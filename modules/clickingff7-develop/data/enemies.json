@@ -1,0 +1,241 @@
+{
+  "1": {
+    "1": {
+      "level": 0.9,
+      "name": "1st Ray",
+      "image": "1st-ray.png",
+      "weakness": ["bolt"]
+    },
+    "2": {
+      "level": 1.4,
+      "name": "MP",
+      "image": "mp.png",
+      "weakness": ["fire"]
+    },
+    "3": {
+      "level": 2,
+      "name": "Grunt",
+      "image": "grunt.png",
+      "weakness": ["fire"]
+    },
+    "4": {
+      "level": 3,
+      "name": "Sweeper",
+      "image": "sweeper.png",
+      "weakness": ["bolt"]
+    },
+    "5": {
+      "level": 4,
+      "name": "Guard Scorpion",
+      "image": "guard-scorpion.png",
+      "weakness": ["bolt"],
+      "resists": ["fire", "ice"],
+      "boss": true
+    }
+  },
+  "2": {
+    "1": {
+      "level": 4,
+      "name": "Special Combatant",
+      "image": "special-combatant.png",
+      "weakness": ["bolt"]
+    },
+    "2": {
+      "level": 5,
+      "name": "Proto Machinegun",
+      "image": "proto-machinegun.png",
+      "weakness": ["bolt"]
+    },
+    "3": {
+      "level": 6,
+      "name": "Blood Taste",
+      "image": "blood-taste.png",
+      "weakness": ["fire"]
+    },
+    "4": {
+      "level": 7,
+      "name": "Smogger",
+      "image": "smogger.png",
+      "weakness": ["bolt"]
+    },
+    "5": {
+      "level": 8,
+      "name": "Air Buster",
+      "image": "air-buster.png",
+      "weakness": ["bolt"],
+      "resists": ["earth"],
+      "boss": true
+    }
+  },
+  "3": {
+    "1": {
+      "level": 8,
+      "name": "Vice",
+      "image": "vice.png"
+    },
+    "2": {
+      "level": 9,
+      "name": "Whole Eater",
+      "image": "whole-eater.png",
+      "weakness": ["fire"]
+    },
+    "3": {
+      "level": 10,
+      "name": "Hedgehog Pie",
+      "image": "hedgehog-pie.png",
+      "weakness": ["bolt"]
+    },
+    "4": {
+      "level": 11,
+      "name": "Hell House",
+      "image": "hell-house.png"
+    },
+    "5": {
+      "level": 12,
+      "name": "Aps",
+      "image": "aps.png",
+      "weakness": ["fire"],
+      "resists": ["gravity"],
+      "boss": true
+    }
+  },
+  "4": {
+    "1": {
+      "level": 12,
+      "name": "Deenglow",
+      "image": "deenglow.png",
+      "weakness": ["fire", "wind"],
+      "resists": ["ice", "water", "earth"]
+    },
+    "2": {
+      "level": 13,
+      "name": "Guard Hound",
+      "image": "guard-hound.png",
+      "weakness": ["fire"]
+    },
+    "3": {
+      "level": 14,
+      "name": "Eligor",
+      "image": "eligor.png",
+      "weakness": ["wind"]
+    },
+    "4": {
+      "level": 15,
+      "name": "Aero Combatant",
+      "image": "aero-combatant.png",
+      "weakness": ["bolt", "wind"],
+      "resists": ["earth"]
+    },
+    "5": {
+      "level": 16,
+      "name": "Turks:Reno",
+      "image": "reno.png",
+      "resists": ["bolt", "fire", "ice"],
+      "boss": true
+    }
+  },
+  "5": {
+    "1": {
+      "level": 16,
+      "name": "Mighty Grunt",
+      "image": "mighty-grunt.png",
+      "resists": ["bolt"]
+    },
+    "2": {
+      "level": 17,
+      "name": "Sword Dance",
+      "image": "sword-dance.png",
+      "resists": ["earth"]
+    },
+    "3": {
+      "level": 18,
+      "name": "Vargid Police",
+      "image": "vargid-police.png",
+      "weakness": ["fire"]
+    },
+    "4": {
+      "level": 19,
+      "name": "SOLDIER:3rd",
+      "image": "soldier-3rd.png",
+      "weakness": ["fire"]
+    },
+    "5": {
+      "level": 20,
+      "name": "Sample:H0512",
+      "image": "sample-h0512.png",
+      "weakness": ["bolt"],
+      "resists": ["poison"],
+      "boss": true
+    }
+  },
+  "6": {
+    "1": {
+      "level": 20,
+      "name": "Zenene",
+      "image": "zenene.png",
+      "resists": ["fire", "poison"]
+    },
+    "2": {
+      "level": 21,
+      "name": "Rufus",
+      "image": "rufus.png",
+      "miboss": true
+    },
+    "3": {
+      "level": 22,
+      "name": "Hundred Gunner",
+      "image": "hundred-gunner.png",
+      "weakness": ["bolt"],
+      "miboss": true
+    },
+    "4": {
+      "level": 23,
+      "name": "Heli Gunner",
+      "image": "heli-gunner.png",
+      "weakness": ["bolt", "wind"],
+      "resists": ["earth"],
+      "miboss": true
+    },
+    "5": {
+      "level": 24,
+      "name": "Motor Ball",
+      "image": "motor-ball.png",
+      "weakness": ["bolt"],
+      "resists": ["fire", "poison"],
+      "boss": true
+    }
+  },
+  "7": {
+    "1": {
+      "level": 24,
+      "name": "Kalm Fang",
+      "image": "kalm-fang.png",
+      "weakness": ["fire"]
+    },
+    "2": {
+      "level": 25,
+      "name": "Mandragora",
+      "image": "mandragora.png",
+      "weakness": ["fire"],
+      "resists": ["water"]
+    },
+    "3": {
+      "level": 26,
+      "name": "Elfadunk",
+      "image": "elfadunk.png"
+    },
+    "4": {
+      "level": 27,
+      "name": "Levrikon",
+      "image": "levrikon.png"
+    },
+    "5": {
+      "level": 28,
+      "name": "Midgar Zolom",
+      "image": "midgar-zolom.png",
+      "weakness": ["fire", "bolt"],
+      "resists": ["water"],
+      "boss": true
+    }
+  }
+}

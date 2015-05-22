@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="revisit-after" content="7 days"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1"/>
+
+    <title>Clicking FF7</title>
+
+    <link rel="stylesheet" type="text/css" href="/bower_components/intro.js/minified/introjs.min.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body ng-controller="IndexCtrl">
+
+<header>
+    <div class="wrapper">
+        clicking ff7
+        <span ng-click="help()" class="help" ng-show="game.loaded">{{"How to play?"|translate}}</span>
+        <div class="progress game_load" ng-show="!game.loaded">
+            <div class="game_load_progress" style="width:{{game.loader.loadProgress(300)}}px;"></div>
+            <span class="bar-label">{{game.loader.filesLoaded}} / {{game.loader.nbFiles}} – {{game.loader.currentLabel}}</span>
+        </div>
+    </div>
+</header>
+
+<div class="page" ng-show="game.loaded">
+
+    <nav class="game-menu" id="step10">
+        <ul>
+            <li ng-click="goGame()" ng-class="{ current: isActive('/game')}">{{"Game"|translate}}</li>
+            <li ng-click="goMap()" ng-class="{ current: isActive('/map')}">
+                <div class="pull-right new" ng-show="game.zones.nextZone">NEW</div>
+                {{"Map"|translate}}
+            </li>
+            <li ng-click="goShop()" ng-class="{ current: isActive('/shop')}">{{"Shop"|translate}}</li>
+            <li ng-click="goEquip()" ng-class="{ current: isActive('/equip')}">{{"Equip"|translate}}</li>
+            <li ng-click="goMateria()" ng-class="{ current: isActive('/materia')}">{{"Materia"|translate}}</li>
+            <li ng-click="goItems()" ng-class="{ current: isActive('/items')}">{{"Items"|translate}}</li>
+            <li ng-click="goConfig()" ng-class="{ current: isActive('/config')}">{{"Config"|translate}}</li>
+            <li ng-click="goPHS()" ng-class="{ current: isActive('/phs'), disabled: game.zones.levelMax < 5}">
+                {{"PHS"|translate}}
+            </li>
+            <li ng-click="goSave()" ng-class="{ current: isActive('/save')}">{{"Save"|translate}}</li>
+        </ul>
+    </nav>
+
+    <div class="game-infos">
+        <div class="pull-right">{{game.time|time}}</div>
+        <div>{{"Time"|translate}}:</div>
+        <div class="pull-right">{{game.gils}}</div>
+        <div>{{"Gil"|translate}}:</div>
+    </div>
+
+    <div class="game-location" id="step11">
+        {{'Zone '+game.zones.level+' name'|translate}}
+        <strong>
+            (#{{game.zones.level}})
+        </strong>
+    </div>
+
+    <div class="game-view" ng-view></div>
+
+</div>
+
+<footer ng-show="game.loaded">
+    <div class="wrapper">
+        <div>
+            ©2014 <a href="http://menencia.com" target="_blank">menencia.com</a>, version <a
+                href="https://github.com/Menencia/clickingff7/releases"
+                target="_blank" id="step12"><big>{{game.version}}</big></a>
+        </div>
+        <div>
+            <a href="https://github.com/Menencia/clickingff7" target="_blank">Github</a> -
+            <a href="https://github.com/Menencia/clickingff7/issues" target="_blank">Browse Issues</a> -
+            <a href="https://github.com/Menencia/clickingff7/issues/new" target="_blank" id="step13">New Issue</a>
+        </div>
+    </div>
+</footer>
+
+<script src="/bower_components/headjs/dist/1.0.0/head.min.js"></script>
+<script>
+    head.load(
+            "bower_components/jquery/dist/jquery.min.js",
+            "bower_components/lodash/dist/lodash.min.js",
+            "bower_components/angular/angular.min.js",
+            "bower_components/angular-route/angular-route.min.js",
+            "bower_components/angular-cookies/angular-cookies.min.js",
+            "bower_components/traceur-runtime/traceur-runtime.min.js",
+            "bower_components/angular-translate/angular-translate.min.js",
+            "bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+            "bower_components/intro.js/minified/intro.min.js",
+            "bower_components/phpjs/functions/info/version_compare.js",
+            "dist/app.js",
+            "dist/game.js",
+            "dist/loader.js"
+    );
+    head.ready(function () {
+        angular.bootstrap(document, ['clickingff7']);
+    });
+</script>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-44996905-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+<script>
+    // Include the UserVoice JavaScript SDK (only needed once on a page)
+    UserVoice = window.UserVoice || [];
+    (function () {
+        var uv = document.createElement('script');
+        uv.type = 'text/javascript';
+        uv.async = true;
+        uv.src = '//widget.uservoice.com/sAiSkTkIFiYPTLCHBdEfaw.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(uv, s)
+    })();
+
+    //
+    // UserVoice Javascript SDK developer documentation:
+    // https://www.uservoice.com/o/javascript-sdk
+    //
+
+    // Set colors
+    UserVoice.push(['set', {
+        accent_color            : '#808283',
+        trigger_color           : 'white',
+        trigger_background_color: 'rgba(46, 49, 51, 0.6)'
+    }]);
+
+    // Identify the user and pass traits
+    // To enable, replace sample data with actual user traits and uncomment the line
+    UserVoice.push(['identify', {
+        //email:      'john.doe@example.com', // User’s email address
+        //name:       'John Doe', // User’s real name
+        //created_at: 1364406966, // Unix timestamp for the date the user signed up
+        //id:         123, // Optional: Unique id of the user (if set, this should not change)
+        //type:       'Owner', // Optional: segment your users by type
+        //account: {
+        //  id:           123, // Optional: associate multiple users with a single account
+        //  name:         'Acme, Co.', // Account name
+        //  created_at:   1364406966, // Unix timestamp for the date the account was created
+        //  monthly_rate: 9.99, // Decimal; monthly rate of the account
+        //  ltv:          1495.00, // Decimal; lifetime value of the account
+        //  plan:         'Enhanced' // Plan name for the account
+        //}
+    }]);
+
+    // Add default trigger to the bottom-right corner of the window:
+    UserVoice.push(['addTrigger', { mode: 'satisfaction', trigger_position: 'bottom-right' }]);
+
+    // Or, use your own custom trigger:
+    //UserVoice.push(['addTrigger', '#id', { mode: 'satisfaction' }]);
+
+    // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+    UserVoice.push(['autoprompt', {}]);
+</script>
+
+</body>
+
+</html>

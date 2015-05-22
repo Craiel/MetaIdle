@@ -1,0 +1,36 @@
+<div class="c2">
+
+    <table style="width: 100%">
+
+        <tr>
+            <th>{{'Name'|translate}}</th>
+            <th>{{'In stock'|translate}}</th>
+            <th class="total">
+                {{game.items.getEquipped().length}} <span class="b">/ {{game.items.MAX_ITEMS}}</span>
+            </th>
+        </tr>
+
+
+        <tr ng-repeat="item in game.items.list" class="item">
+            <td>
+                <img ng-src="/img/icons/item.gif"/>
+                {{'It. '+item.name+' name'|translate}}<br />
+                <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
+            </td>
+            <td>{{item.number}}</td>
+            <td class="total">
+                <span ng-click="item.unequip()" ng-if="item.equipped" class="hover">
+                    <i class="fa fa-check-square-o"></i>
+                </span>
+                <span ng-click="item.equip()" ng-if="!item.equipped && item.canEquip()" class="hover">
+                    <i class="fa fa-square-o"></i>
+                </span>
+            </td>
+        </tr>
+
+        <tr ng-if="game.items.list.length === 0" class="nothing">
+            <td colspan="4">{{"No items"|translate}}</td>
+        </tr>
+
+    </table>
+</div>

@@ -1,0 +1,67 @@
+<div id="gamebox" class="gcGameBox">
+
+	<table style="width: 100%;">
+
+		<tr>
+			<td id="leftbar_c">
+				<div id="leftbar">
+
+					<p>
+						<button id="info_button" onclick="show_info()">Show info</button>
+						<button id="info_button" onclick="query_reset()">Reset</button>
+					</p>
+
+				</div>
+				<div id="upgrade_bar">
+				</div>
+			</td>
+
+			<td id="centre_c" rowspan="2">
+				<div id="centre" style="text-align: center; position: relative;">
+					
+					<div id="goomies">
+						<p><span id="goomycount">0 Goomies</span><br />
+						<span id="gps">0 Goomies per second</span></p>
+					</div>
+					<div id="goomy_container" style="margin: auto;">
+						<img id="great_goomy" style="margin: auto; height: 400px;" src="{{root}}/images/great_goomy.png" />
+					</div>
+					<div id="stats">
+						<span class="dialog_header">STATS</span>
+						<div>Level <span id="level">1</span> <progress id="expbar" max="100" value="0"></progress></div>
+						<p>If your swath of Goomies were laid out end to end, they would stretch <span id="comparison" class="indicator"></span>.</p>
+					</div>
+
+					<!-- begin panels -->
+					
+					<div id="info" class="panel">
+						<span class="dialog_header">INFORMATION</span>
+						<p>Number of Goomies: <span id="info_goomycount" class="indicator"></span></p>
+
+						<p>Total length your Goomies line up to: <b><span id="total_length"></span></b><br />
+						If your swath of Goomies were laid out end to end, they would stretch <span id="length_comparison" class="indicator"></span>.</p>
+
+						<p>Total space your Goomies fill: <b><span id="total_volume"></span></b><br />
+						Your swath of Goomies could <span id="volume_comparison" class="indicator"></span>.</p>
+
+						<p>Total mass of your Goomies: <b><span id="total_weight"></span></b><br />
+						Your swath of Goomies weighs as much as <span id="weight_comparison" class="indicator"></span>.</p>
+
+
+						<button onclick="hide_info()">Close</button>
+					</div>
+					
+					<!-- end panels -->
+
+				</div>
+			</td>
+			
+			<td id="rightbar_c" rowspan="2">
+				<div id="rightbar">
+				</div>
+			</td>
+		</tr>
+
+	</table>
+
+</div> <!-- gamebox -->

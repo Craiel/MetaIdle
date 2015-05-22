@@ -1,0 +1,178 @@
+<nav class="actions" id="step1">
+    <div class="block">
+        <ul>
+            <li ng-class="{current: game.shop.section === 'buy'}" ng-click="changeSection('buy')">
+                {{"Buy"|translate}}
+            </li>
+            <li ng-class="{current: game.shop.section === 'sell'}" ng-click="changeSection('sell')">
+                {{"Sell"|translate}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <ul>
+            <li ng-class="{current: game.shop.type === 'weapons'}" ng-click="changeType('weapons')">
+                {{"Weapons"|translate}}
+            </li>
+            <li ng-class="{current: game.shop.type === 'materias'}" ng-click="changeType('materias')">
+                {{"Materia"|translate}}
+            </li>
+            <li ng-class="{current: game.shop.type === 'items'}" ng-click="changeType('items')">
+                {{"Items"|translate}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="block" ng-if="game.shop.section === 'buy' && game.shop.type === 'weapons'">
+        <ul>
+            <li ng-class="{current: game.shop.allWeapons}" ng-click="game.shop.enable('allWeapons')">
+                {{"All"|translate}}
+            </li>
+            <li ng-class="{current: !game.shop.allWeapons}" ng-click="game.shop.disable('allWeapons')">
+                {{"New"|translate}}
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="c2">
+
+    <section ng-if="game.shop.section === 'buy'">
+
+        <table style="width: 100%">
+
+            <tr>
+                <th>{{"Name"|translate}}</th>
+                <th>{{"In stock"|translate}}</th>
+                <th>{{"Price"|translate}}</th>
+                <th></th>
+            </tr>
+
+            <tr ng-repeat="weapon in game.shop.weapons" ng-if="game.shop.type === 'weapons'">
+                <td>
+                    <img ng-src="/img/icons/weapons/{{weapon.type}}.png" />
+                    {{weapon.name}} <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
+                </td>
+                <td>{{weapon.inStock()}}</td>
+                <td>{{weapon.price}} {{"Gils"|translate}}</td>
+                <td>
+                    <span ng-click="weapon.buy()" ng-if="weapon.canBuy()" class="button">
+                        {{"Buy"|translate}}
+                    </span>
+                </td>
+            </tr>
+
+            <tr ng-if="game.shop.type === 'weapons' && game.shop.weapons.length === 0" class="nothing">
+                <td colspan="4">
+                    {{"Nothing new to buy"|translate}}<br />
+                    <div class="link" ng-click="game.shop.enable('allWeapons')">{{'See all weapons'|translate}}</div>
+                </td>
+            </tr>
+
+            <tr ng-repeat="materia in game.shop.materias" ng-if="game.shop.type === 'materias'" class="materia">
+                <td>
+                    <img ng-src="/img/icons/materias/{{materia.color}}.gif" />
+                    {{'Mat. '+materia.name+' name'|translate}}<br />
+                    <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
+                </td>
+                <td>{{materia.inStock()}}</td>
+                <td>{{materia.price}} {{"Gils"|translate}}</td>
+                <td>
+                    <span ng-click="materia.buy()" ng-if="materia.canBuy()" class="button">
+                        {{"Buy"|translate}}
+                    </span>
+                </td>
+            </tr>
+
+            <tr ng-repeat="item in game.shop.items" ng-if="game.shop.type === 'items'" class="item">
+                <td>
+                    <img ng-src="/img/icons/item.gif" />
+                    {{'It. '+item.name+' name'|translate}}<br />
+                    <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
+                </td>
+                <td>{{item.inStock()}}</td>
+                <td>{{item.price}} {{"Gils"|translate}}</td>
+                <td>
+                    <span ng-click="item.buy()" ng-if="item.canBuy()" class="button">
+                        {{"Buy"|translate}}
+                    </span>
+                </td>
+            </tr>
+
+        </table>
+
+    </section>
+
+    <section ng-if="game.shop.section === 'sell'">
+
+        <table style="width: 100%">
+
+            <tr>
+                <th>{{"Name"|translate}}</th>
+                <th>{{"In stock"|translate}}</th>
+                <th>{{"Price"|translate}}</th>
+                <th></th>
+            </tr>
+
+            <tr ng-repeat="weapon in game.weapons.list" ng-if="game.shop.type === 'weapons'">
+                <td>
+                    <img ng-src="/img/icons/weapons/{{weapon.type}}.png" />
+                    {{weapon.name}} <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
+                </td>
+                <td>{{weapon.inStock()}}</td>
+                <td>{{weapon.getSellPrice()}} {{"Gils"|translate}}</td>
+                <td>
+                    <span ng-click="weapon.sell()" ng-if="weapon.canSell()" class="button">
+                        {{"Sell"|translate}}
+                    </span>
+                </td>
+            </tr>
+
+            <tr ng-if="game.shop.type === 'weapons' && game.shop.type.length === 0" class="nothing">
+                <td colspan="4">{{"Nothing to sell"|translate}}</td>
+            </tr>
+
+            <tr ng-repeat="materia in game.materias.list" ng-if="game.shop.type === 'materias'" class="materia">
+                <td>
+                    <img ng-src="/img/icons/materias/{{materia.color}}.gif" />
+                    {{'Mat. '+materia.name+' name'|translate}}
+                    <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
+                </td>
+                <td>{{materia.inStock()}}</td>
+                <td>{{materia.getSellPrice()}} {{"Gils"|translate}}</td>
+                <td>
+                    <span ng-click="materia.sell()" ng-if="materia.canSell()" class="button">
+                        {{"Sell"|translate}}
+                    </span>
+                </td>
+            </tr>
+
+            <tr ng-if="game.shop.type === 'materias' && game.materias.list.length === 0" class="nothing">
+                <td colspan="4">{{"Nothing to sell"|translate}}</td>
+            </tr>
+
+            <tr ng-repeat="item in game.items.list" ng-if="game.shop.type === 'items'" class="item">
+                <td>
+                    <img ng-src="/img/icons/item.gif" />
+                    {{'It. '+item.name+' name'|translate}}<br />
+                    <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
+                </td>
+                <td>{{item.inStock()}}</td>
+                <td>{{item.getSellPrice()}} {{"Gils"|translate}}</td>
+                <td>
+                    <span ng-click="item.sell()" ng-if="item.canSell()" class="button">
+                        {{"Sell"|translate}}
+                    </span>
+                </td>
+            </tr>
+
+            <tr ng-if="game.shop.type === 'items' && game.items.list.length === 0" class="nothing">
+                <td colspan="4">{{"Nothing to sell"|translate}}</td>
+            </tr>
+
+        </table>
+
+    </section>
+
+</div>

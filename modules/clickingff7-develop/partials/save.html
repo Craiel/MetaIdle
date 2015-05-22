@@ -1,0 +1,54 @@
+<nav class="actions">
+    <div class="block">
+        <ul>
+            <li ng-click="saveGame()">
+                {{"Save"|translate}}
+            </li>
+            <li ng-click="resetGame()" ng-class="{disabled: game.saves.length === 0}">
+                {{"Reset"|translate}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <ul>
+            <li ng-click="exportLastSave()" ng-class="{disabled: game.saves.length === 0}">
+                {{"Export save"|translate}}
+            </li>
+            <li ng-click="exportCurrentGame()">
+                {{"Export game"|translate}}
+            </li>
+            <li ng-click="showImport()">
+                {{"Import"|translate}}
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="c1">
+    <div ng-if="game.saves.length === 0" class="no-data">
+        {{"No saves"|translate}}
+    </div>
+
+    <div ng-if="game.saves.length > 0">
+        <img ng-repeat="character in game.saves[0].characters.list" ng-if="character.inTeam" ng-src="{{character.image}}" alt="" width="80"
+             class="save_character"/>
+        <br/>
+        {{"Time"|translate}}: {{game.saves[0].time|time}}
+        <br/>
+        {{"Gil"|translate}}: {{game.saves[0].gils}}
+    </div>
+</div><!--
+
+--><div class="c3">
+    <div id="area-export">
+        <textarea ng-model="areaExport" class="areaExport"></textarea>
+    </div>
+    <div id="area-import">
+        <textarea ng-model="areaImport" class="areaImport"></textarea>
+
+        <div ng-click="importSave()" class="button">
+            IMPORT
+        </div>
+    </div>
+</div>

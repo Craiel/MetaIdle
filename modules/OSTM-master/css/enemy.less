@@ -1,0 +1,60 @@
+.spawn-area {
+    position: absolute;
+    left: 150px;
+    right: 150px;
+    top: 100px;
+    bottom: 50px;
+}
+
+.enemy-container {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    text-align: center;
+    vertical-align: text-bottom;
+    pointer-events: none;
+}
+
+.enemy-container .name {
+    font-weight: bold;
+}
+
+.enemy {
+    width: 160px;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: all 0.15s, width 0s;
+}
+
+.boss {
+    width: 420px;
+}
+
+.blur {
+    filter: blur(2px);
+    transition: 0.05s;
+}
+
+#map-button {
+    position: absolute;
+    top: 50px;
+    left: 30px;
+    width: 100px;
+    height: 50px;
+}
+
+#dec-level,
+#inc-level {
+    position: absolute;
+    top: calc(50% - 20px);
+    width: 100px;
+    height: 40px;
+}
+
+#dec-level {
+    left: 30px;
+}
+
+#inc-level {
+    right: 30px;
+}

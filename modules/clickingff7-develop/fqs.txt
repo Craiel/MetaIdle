@@ -1,0 +1,71 @@
+Clicking FF7 FAQS
+
+
+
+==---------------------------------------------------------------------------==
+
+~ Attack
+    Damages: characterLvl * weaponPwr / 10
+
+~ Limit
+    Damages: Attack * 5
+
+~ Critical
+    10% chance
+    Damages: Damages * 2
+
+~ Magic
+    Damages: charactersHits * (1 + (materiaPwr + materiaLvl) / 100)
+
+~ Weakness
+    Damages: Damages * 3
+
+~ Resistance
+    Damages: Damages / 3
+
+==---------------------------------------------------------------------------==
+
+Materia
+
+~ Bolt
+    Bolt attack
+    Power: 50-150
+
+~ Ice
+    Ice attack
+    Power: 50-150
+
+~ Fire
+    Fire attack
+    Power: 50-150
+
+~ Poison
+    Bolt attack
+    Power: 50-150
+
+~ Earth
+    Bolt attack
+    Power: 50-150
+
+~ Restore
+    Cure team HP
+    Power: 20-40
+
+==---------------------------------------------------------------------------==
+
+Zones
+  
+  #01   Sector 1 Reactor
+  #02   Sector 5 Reactor
+  #03   Sector 6
+  #04   Sector 7
+  #05   Shinra Headquarters (part 1)
+
+==---------------------------------------------------------------------------==
+
+Weapons
+
+  CLOUD
+  * Buster Sword    PWR 18
+
+  BARRET

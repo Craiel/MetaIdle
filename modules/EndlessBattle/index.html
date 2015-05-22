@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <style type="text/css" media="all">@import "layout.css";</style>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jquery-ui.js"></script>
+
+    <script src="Game.js"></script>
+</head>
+
+<body>
+<!------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------  ---------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------->
+
+<!------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------- NAVIGATION BAR --------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------->
+<div id="navBar">
+    <div id="version">Version 0.2</div>
+    <div id="updates" class="navBarText textButton" style="padding: 5px 10px 5px 15px; float: left" onmousedown="updatesWindowButtonClick()">Updates</div>
+    <div id="options" class="navBarText textButton" style="padding: 5px 10px 5px 10px; float: left" onmousedown="optionsWindowButtonClick()">Options</div>
+    <div id="stats" class="navBarText textButton" style="padding: 5px 10px 5px 10px; float: left" onmousedown="statsWindowButtonClick()">Stats</div>
+
+    <div id="fullReset" class="navBarText textButton" style="padding: 5px 25px 5px 10px; float: right" onmousedown="fullResetButtonClick()">Full Reset</div>
+    <div id="reset" class="navBarText textButton" style="padding: 5px 10px 5px 10px; float: right" onmousedown="resetButtonClick()">Reset</div>
+    <div id="save" class="navBarText textButton" style="padding: 5px 10px 5px 10px; float: right" onmousedown="saveButtonClick()">Save</div>
+</div>
+
+<div id="loadingArea" class="gameArea" style="display: none;">
+    <div id="loadingText" class="textShadow">Loading.</div>
+</div>
+
+<div id="gameArea" class="gameArea">
+    <canvas id="particleCanvas" width="675" height="550" style="position: absolute; left: 0; right: 0; top: 0px; bottom: 0; margin: auto"></canvas>
+
+    <div id="updatesWindow" class="navBarWindow" style="display: none;">
+        <div id="updatesWindowTitle" class="statsWindowLargeText navBarWindowTitle">Updates</div>
+
+        <div id="updatesWindowTextArea">
+            <div class="updatesWindowUpdateTitle">Beta Version 0.2 - 16/05/14</div>
+            <div class="updatesWindowUpdate">- Renamed the Thief's special ability upgrades to something more fitting</div>
+            <div class="updatesWindowUpdate">- The window will now resize automatically on any resolution</div>
+            <div class="updatesWindowUpdate">- Dragging and dropping items should now be bug free</div>
+            <div class="updatesWindowUpdate">- Your stat bonuses from leveling up now load properly, you have not lost any stats on current saves</div>
+            <div class="updatesWindowUpdate">- Recreated how particles are created and drawn</div>
+            <div class="updatesWindowUpdate">- Condensed a lot of the code</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where the Thief's special ability upgrades would not increase by the right amount, all current saves will now load with the correct amount, you have not lost anything</div>
+            <div class="updatesWindowUpdate">- You can now unlock new attacks through the upgrades menu after meeting certain requirements</div>
+            <div class="updatesWindowUpdate">- You can now unlock auto selling upgrades</div>
+            <div class="updatesWindowUpdate">- Epic and Legendary items can now have special effects</div>
+            <div class="updatesWindowUpdate">- Added the first events, these occur randomly every hour</div>
+            <div class="updatesWindowUpdate">- Added new Quests that occur from events, these reward powerful buffs in addition to their other rewards</div>
+            <div class="updatesWindowUpdate">- All interface windows are now independant and can be dragged around the screen</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where stats displayed in the Character window could overlap other stats</div>
+            <div class="updatesWindowUpdate">- Added a loading screen</div>
+            <div class="updatesWindowUpdate">- Added a new stat: Evasion</div>
+            <div class="updatesWindowUpdate">- Thieves have turned into Assassins</div>
+            <div class="updatesWindowUpdate">- Assassins grant a bonus to Evasion instead of armour</div>
+            <div class="updatesWindowUpdate">- Rejuvenating Strikes is now weaker in the early game but stronger in the late game</div>
+            <div class="updatesWindowUpdate">- Items and Monsters have been rebalanced, you should now be able to progress further faster</div>
+            <div class="updatesWindowUpdate">- Weapons of higher rarities will now always have higher damage than weapons of lower rarities</div>
+            <div class="updatesWindowUpdate">- Strength, Agility and Stamina have been changed. Crit chance should now be a more valuable stat on high level items</div>
+            <div class="updatesWindowUpdate">- The armour formula has been changed, it should no longer be an easy feat to reach maximum damage reduction</div>
+            <div class="updatesWindowUpdate">- The amount of stacks on a debuff is now displayed on the debuff's icon</div>
+            <div class="updatesWindowUpdate">- Because of the power of the new items, the spawn chance of bosses and drop rates of higher rarity items has been decreased</div>
+            <div class="updatesWindowUpdate">- The power of abilities has been reduced to make them more balanced with the new weapon damage</div>
+            <div class="updatesWindowUpdate">- You can no longer choose a bonus to Crit Chance when leveling up, this is to make Crit Chance on higher level items more appealing</div>
+            <div class="updatesWindowUpdate">- An alert will appear when a new quest or upgrade is available</div>
+            <div class="updatesWindowUpdate">- The quests button will now glow when there is a new quest</div>
+            <div class="updatesWindowUpdate">- Resetting the game will now grant you an amount of power shards depending on how well you did</div>
+            <div class="updatesWindowUpdate">- Added some ads under the game to help me keep the server running. If you don't like the ads you are free to use adblock, but please remember that these ads are needed to pay for the server</div>
+            <br>
+            <div class="updatesWindowUpdateTitle">Beta Version 0.1b</div>
+            <div class="updatesWindowUpdate">- The critical strike particle now uses the correct particle</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where damage bonuses from leveling up would not work</div>
+            <div class="updatesWindowUpdate">- Added a tooltip to the damage bonus stat in the character window</div>
+            <div class="updatesWindowUpdate">- The damage bonus upgrade option from leveling up no longer displays an incorrect tooltip</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where the game would attempt to equip items that did not exist</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where the monster damage particles option would not work correctly</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where mercenary ability upgrades would expire</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where gold gain would increase mercenary Gps by twice the amount</div>
+            <div class="updatesWindowUpdate">- Increased the amount of experience required to gain levels. Leveling felt too easy and and this should make Exp Gain a more valuable stat</div>
+            <div class="updatesWindowUpdate">- Sadly the mercenary ability upgrades and the damage bonuses from leveling up you have already obtained will not be recoverable. So I've added stat increases to health and hp5 when you level up. This WILL work from current saves so it's up to you if you want to reset. I'm really sorry about this.</div>
+            <br>
+            <div class="updatesWindowUpdateTitle">Beta Version 0.1a</div>
+            <div class="updatesWindowUpdate">- Commanders now increase your Health and Thieves increase your Armour. Their gold gain abilities made them incredibly overpowered :( More gold gain features are planned though.</div>
+            <div class="updatesWindowUpdate">- Nerfed the Cleric, Mage and Warlock bonuses to 5%. 100% bonuses for just 10 mercenaries made them too powerful</div>
+            <div class="updatesWindowUpdate">- Gold Earned is now correctly formatted in the stats menu</div>
+            <div class="updatesWindowUpdate">- Added more tooltips to the stats in the equipment window</div>
+            <div class="updatesWindowUpdate">- Added a "Sell All" button to the inventory</div>
+            <div class="updatesWindowUpdate">- Repositioned the inventory so it doesn't cover up the experience bar</div>
+            <div class="updatesWindowUpdate">- Quest descriptions can now english better</div>
+            <div class="updatesWindowUpdate">- When you level up, some of the stat upgrades will now have tooltips</div>
+            <div class="updatesWindowUpdate">- The Upgrades Button will now glow when a new upgrade becomes available</div>
+            <div class="updatesWindowUpdate">- You can now alt-right-click to equip a trinket into the second slot</div>
+            <div class="updatesWindowUpdate">- Resetting will now reset the Resurrection interfaces</div>
+            <div class="updatesWindowUpdate">- Removed annoying console logs</div>
+            <div class="updatesWindowUpdate">- You can no longer drag inventory/equipment slots around the screen</div>
+            <div class="updatesWindowUpdate">- You can now right click an equipped item to unequip it</div>
+            <div class="updatesWindowUpdate">- Item tooltips now display the item's level, all current items did not have this feature and so will have an undefined item level</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where stat bonuses from leveling up would not work properly. Sadly any bonuses you gained have been lost, you can either continue without them gaining new ones as you level, or reset your save. I'm sorry :(</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where battle level buttons would not load in the correct state</div>
+            <div class="updatesWindowUpdate">- Your battle level will now save</div>
+            <div class="updatesWindowUpdate">- Hovering over a monster's health bar will now show their health</div>
+            <div class="updatesWindowUpdate">- Added an options menu:</div>
+            <div class="updatesWindowUpdateIndent">- Control which battle particles show</div>
+            <div class="updatesWindowUpdateIndent">- Toggle player health, monster health and experience to always show</div>
+            <div class="updatesWindowUpdate">- Items now have a coloured border depending on their rarity</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where special upgrades would make normal upgrades unpurchasable</div>
+            <div class="updatesWindowUpdate">- Fixed a bug where items in your inventory would still be displayed after resetting</div>
+            <div class="updatesWindowUpdate">- Cleaned up the code a bit and removed a lot of unused graphics</div>
+            <div class="updatesWindowUpdate">- After killing a monster, the new one will not get a free attack in</div>
+        </div>
+        <div id="updatesWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+    </div>
+
+    <div id="statsWindow" class="navBarWindow" style="display: none;">
+        <div id="statsWindowTitle" class="statsWindowLargeText navBarWindowTitle">Stats</div>
+        <div id="statsWindowStatsArea">
+            <div id="statsWindowPowerShards" class="statsWindowText">Power Shards:</div>
+            <div id="statsWindowGold" class="statsWindowText">Gold:</div>
+            <div id="statsWindowGps" class="statsWindowText">Gps:</div>
+            <div id="statsWindowGoldEarned" class="statsWindowText">Gold Earned:</div>
+            <div id="statsWindowGoldFromMonsters" class="statsWindowText">Gold from Monsters:</div>
+            <div id="statsWindowGoldFromMercenaries" class="statsWindowText">Gold from Mercenaries:</div>
+            <div id="statsWindowGoldFromQuests" class="statsWindowText">Gold from Quests:</div>
+            <div id="statsWindowGoldFromItems" class="statsWindowText">Gold from Items:</div>
+            <div id="statsWindowExperience" class="statsWindowText">Experience:</div>
+            <div id="statsWindowExperienceEarned" class="statsWindowText">Experience Earned:</div>
+            <div id="statsWindowExperienceFromMonsters" class="statsWindowText">Experience from Monsters:</div>
+            <div id="statsWindowExperienceFromQuests" class="statsWindowText">Experience from Quests:</div>
+            <div id="statsWindowStartDate" class="statsWindowText">Start Date:</div>
+            <div id="statsWindowMercenariesOwned" class="statsWindowText">Mercenaries Owned:</div>
+            <div id="statsWindowUpgradesUnlocked" class="statsWindowText">Upgrades Unlocked:</div>
+            <div id="statsWindowItemsLooted" class="statsWindowText">Items Looted:</div>
+            <div id="statsWindowItemsSold" class="statsWindowText">Items Sold:</div>
+            <div id="statsWindowQuestsCompleted" class="statsWindowText">Quests Completed:</div>
+            <div id="statsWindowMonstersKilled" class="statsWindowText">Monsters Killed:</div>
+            <div id="statsWindowDamageDealt" class="statsWindowText">Damage Dealt:</div>
+            <div id="statsWindowDamageTaken" class="statsWindowText">Damage Taken:</div>
+        </div>
+        <div id="statsWindowStatValuesArea">
+            <div id="statsWindowPowerShardsValue" class="statsWindowText">0.00</div>
+            <div id="statsWindowGoldValue" class="statsWindowText">0.00</div>
+            <div id="statsWindowGpsValue" class="statsWindowText">0.00</div>
+            <div id="statsWindowGoldEarnedValue" class="statsWindowText">0.00</div>
+            <div id="statsWindowGoldFromMonstersValue" class="statsWindowText">392,265.10</div>
+            <div id="statsWindowGoldFromMercenariesValue" class="statsWindowText">0.00</div>
+            <div id="statsWindowGoldFromQuestsValue" class="statsWindowText">0</div>
+            <div id="statsWindowGoldFromItemsValue" class="statsWindowText">11,900,844</div>
+            <div id="statsWindowExperienceValue" class="statsWindowText">7,458.99</div>
+            <div id="statsWindowExperienceEarnedValue" class="statsWindowText">323,417.99</div>
+            <div id="statsWindowExperienceFromMonstersValue" class="statsWindowText">323,417.99</div>
+            <div id="statsWindowExperienceFromQuestsValue" class="statsWindowText">0</div>
+            <div id="statsWindowStartDateValue" class="statsWindowText">Mon May 12 2014 7:41:30 PM</div>
+            <div id="statsWindowMercenariesOwnedValue" class="statsWindowText">190</div>
+            <div id="statsWindowUpgradesUnlockedValue" class="statsWindowText">12</div>
+            <div id="statsWindowItemsLootedValue" class="statsWindowText">1,773</div>
+            <div id="statsWindowItemsSoldValue" class="statsWindowText">1,755</div>
+            <div id="statsWindowQuestsCompletedValue" class="statsWindowText">0</div>
+            <div id="statsWindowMonstersKilledValue" class="statsWindowText">13,775</div>
+            <div id="statsWindowDamageDealtValue" class="statsWindowText">854,991,150</div>
+            <div id="statsWindowDamageTakenValue" class="statsWindowText">20,294,811</div>
+        </div>
+        <div id="statsWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+    </div>
+
+    <div id="optionsWindow" class="navBarWindow" style="display: none;">
+        <div id="optionsWindowTitle" class="statsWindowLargeText navBarWindowTitle">Options</div>
+        <div id="optionsWindowOptionsArea">
+            <div id="particleOptionsTitle" class="optionsWindowOptionsTitle">Particles</div>
+            <div id="skullParticlesOption" class="optionsWindowOption" onmousedown="skullParticlesOptionClick()">Monster death particles: ON</div>
+            <div id="goldParticlesOption" class="optionsWindowOption" onmousedown="goldParticlesOptionClick()">Gold particles: ON</div>
+            <div id="experienceParticlesOption" class="optionsWindowOption" onmousedown="experienceParticlesOptionClick()">Experience particles: ON</div>
+            <div id="playerDamageParticlesOption" class="optionsWindowOption" onmousedown="playerDamageParticlesOptionClick()">Player damage particles: ON</div>
+            <div id="monsterDamageParticlesOption" class="optionsWindowOption" onmousedown="monsterDamageParticlesOptionClick()">Monster damage particles: ON</div>
+
+            <div id="interfaceOptionsTitle" class="optionsWindowOptionsTitle">Interface</div>
+            <div id="playerHealthOption" class="optionsWindowOption" onmousedown="playerHealthOptionClick()">Always display player health: ON</div>
+            <div id="monsterHealthOption" class="optionsWindowOption" onmousedown="monsterHealthOptionClick()">Always display monster health: ON</div>
+            <div id="expBarOption" class="optionsWindowOption" onmousedown="expBarOptionClick()">Always display experience: ON</div>
+        </div>
+        <div id="optionsWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+    </div>
+
+    <div id="resetConfirmWindow" style="display: none;">
+        <div id="resetConfirmWindowTitle">Confirm Reset</div>
+        <div id="resetConfirmWindowDescription">
+            <div id="resetDescription">Resetting will erase all progress and not be recoverable. Are you sure you want to reset?<br><br></div>
+            <div id="resetConfirmWindowPowerShard" class="powerShard" style="width: 34px; height: 41px"></div>
+            <div id="powerShardsDescription" class="resetConfirmWindowIndentText">You will earn UNKNOWN Power Shards from resetting.</div>
+        </div>
+        <div id="resetConfirmWindowYesButton" onmousedown="resetConfirmWindowYesButtonClick()">Yes</div>
+        <div id="resetConfirmWindowNoButton" onmousedown="resetConfirmWindowNoButtonClick()">No</div>
+    </div>
+
+    <div id="tutorialArea" style="left: 0px; right: 0px; top: 0px; bottom: 0px; margin: auto; padding-right: 660px; padding-bottom: 50px; display: none;">
+        <div id="tutorialWindow">
+            <div id="tutorialTitle">Tutorial</div>
+            <div id="tutorialDescription">Welcome to Endless Battle, to get started click the enter battle button.</div>
+            <div id="tutorialContinueButton" class="textButton" onmousedown="tutorialContinueButtonClick()" style="display: none;">Continue</div>
+        </div>
+        <div id="tutorialRightArrow" class="tutorialRightArrow" style="left: 290px; top: 67px;"></div>
+    </div>
+
+    <div id="eventsArea"></div>
+
+    <div id="buffsArea"></div>
+
+    <div id="playerHealthBarArea" class="smallBarArea" onmouseover="playerHealthBarAreaMouseOver()" onmouseout="playerHealthBarAreaMouseOut()">
+        <div id="playerHealthBarBackground" class="smallBarBackground"></div>
+        <div id="playerHealthBar" class="smallBar" style="width: 198px; height: 23px;"></div>
+        <div id="playerHealthBarBorder" class="smallBarBorder"></div>
+        <div id="playerHealthBarText" class="smallBarText" style="display: block;">3757/3757</div>
+    </div>
+
+    <div id="battleArea">
+        <div id="resurrectionBarArea" class="smallBarArea" style="display: none;">
+            <div id="resurrectionBarBackground" class="smallBarBackground"></div>
+            <div id="resurrectionBar" class="smallBar"></div>
+            <div id="resurrectionBarBorder" class="smallBarBorder"></div>
+            <div id="resurrectionBarText" class="smallBarText"></div>
+        </div>
+
+        <div id="monsterHealthBarArea" class="smallBarArea" onmouseover="monsterHealthBarAreaMouseOver()" onmouseout="monsterHealthBarAreaMouseOut()" style="display: none;">
+            <div id="monsterHealthBarBackground" class="smallBarBackground"></div>
+            <div id="monsterHealthBar" class="smallBar" style="width: 198px; height: 23px; color: rgb(255, 255, 255);"></div>
+            <div id="monsterHealthBarBorder" class="smallBarBorder"></div>
+            <div id="monsterName" class="smallBarText" style="color: rgb(255, 255, 255);">8477/8477</div>
+        </div>
+
+        <div id="enterBattleButton" class="stoneButton1 button" onmouseover="enterBattleButtonHover(this)" onmouseout="enterBattleButtonReset(this)" onmousedown="enterBattleButtonClick(this)" onmouseup="enterBattleButtonHover(this)" style="top: 30px; left: 120px;">Enter Battle</div>
+        <div id="leaveBattleButton" class="stoneButton1 button" onmouseover="leaveBattleButtonHover(this)" onmouseout="leaveBattleButtonReset(this)" onmousedown="leaveBattleButtonClick(this)" onmouseup="leaveBattleButtonHover(this)" style="top: 60px; left: 120px; display: none;">Leave Battle</div>
+
+        <div id="battleLevelDownButton" class="battleLevelButton button" style="display: block; background: url(includes/images/battleLevelButton.png) 0px 0px;" onmouseover="battleLevelDownButtonHover(this)" onmousedown="battleLevelDownButtonClick(this)" onmouseout="battleLevelDownButtonReset(this)" onmouseup="battleLevelDownButtonReset(this)">-</div>
+        <div id="battleLevelUpButton" class="battleLevelButton button" style="left: 325px; display: block;" onmouseover="battleLevelUpButtonHover(this)" onmousedown="battleLevelUpButtonClick(this)" onmouseout="battleLevelUpButtonReset(this)" onmouseup="battleLevelUpButtonReset(this)">+</div>
+
+        <div id="attackButton" class="button" onmouseover="attackButtonHover(this)" onmouseout="attackButtonReset()" onmousedown="attackButtonClick()" onmouseup="attackButtonHover(this)" style="display: none; background: url(includes/images/attackButtons.png) 0px 0px;"></div>
+
+        <div id="monsterBleedingIcon" class="bleedingIcon" onmouseover="bleedingIconMouseOver(this)" onmouseout="bleedingIconMouseOut()" style="display: none;">
+            <div id="monsterBleedingStacks" class="stackAmount"></div>
+        </div>
+        <div id="monsterBurningIcon" class="burningIcon" onmouseover="burningIconMouseOver(this)" onmouseout="burningIconMouseOut()" style="display: none;">
+            <div id="monsterBurningStacks" class="stackAmount"></div>
+        </div>
+        <div id="monsterChilledIcon" class="chilledIcon" onmouseover="chilledIconMouseOver(this)" onmouseout="chilledIconMouseOut()" style="display: none;"></div>
+    </div>
+
+    <div id="levelUpButton" class="stoneButton1 button" onmouseover="levelUpButtonHover()" onmouseout="levelUpButtonReset()" onmousedown="levelUpButtonClick()" onmouseup="levelUpButtonHover()" style="display: block;">Level Up</div>
+
+    <div id="goldCoin" class="goldCoin" style="position: absolute; top: 8px; left: 697px; z-index: 1; width: 20px; height: 20px;"></div>
+    <div id="goldAmount" style="left: 718px;">0.00</div>
+    <div id="gps" style="left: 713px;">0.00gps</div>
+
+    <div id="battleLevelText">Battle Level 1</div>
+
+    <div id="expBarArea" onmouseover="expBarAreaMouseOver()" onmouseout="expBarAreaMouseOut()" style="display: block;">
+        <div id="expBarBackground"></div>
+        <div id="expBar" style="width: 101.067314096999px; height: 13px;"></div>
+        <div id="expBarBorder"></div>
+        <div id="expBarText" style="display: block;">7458/52990</div>
+    </div>
+
+    <div id="button" class="characterWindowButton" onmouseover="characterWindowButtonHover(this)" onmouseout="characterWindowButtonReset(this)" onmousedown="characterWindowButtonClick(this)" onmouseup="characterWindowButtonHover(this)" style="display: block;"></div>
+    <div id="button" class="mercenariesWindowButton" onmouseover="mercenariesWindowButtonHover(this)" onmouseout="mercenariesWindowButtonReset(this)" onmousedown="mercenariesWindowButtonClick(this)" onmouseup="mercenariesWindowButtonHover(this)" style="display: block;"></div>
+    <div id="button" class="upgradesWindowButton" style="display: block;"></div>
+    <div id="upgradesWindowButtonGlow" class="button" onmouseover="upgradesWindowButtonHover(this)" onmouseout="upgradesWindowButtonReset(this)" onmousedown="upgradesWindowButtonClick(this)" onmouseup="upgradesWindowButtonHover(this)" style="display: block;"></div>
+    <div id="button" class="questsWindowButton" style="display: block;"></div>
+    <div id="questsWindowButtonGlow" class="button" onmouseover="questsWindowButtonHover(this)" onmouseout="questsWindowButtonReset(this)" onmousedown="questsWindowButtonClick(this)" onmouseup="questsWindowButtonHover(this)" style="display: block;"></div>
+    <div id="button" class="craftingWindowButton" style="display: none;"></div>
+
+    <div id="button" class="inventoryWindowButton" onmouseover="inventoryWindowButtonHover(this)" onmouseout="inventoryWindowButtonReset(this)" onmousedown="inventoryWindowButtonClick(this)" onmouseup="inventoryWindowButtonHover(this)" style="display: block;"></div>
+
+    <div id="windowArea">
+        <div id="inventoryWindow" oncontextmenu="return false" style="display: none;" class="ui-draggable">
+            <div id="inventoryWindowTitle">Inventory</div>
+
+            <!-- inventory SLOTS ROW 1 -->
+            <div id="inventoryItem1" class="button ui-draggable" style="position: absolute; left: 4px; top: 23px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 70px 70px;" onmouseover="inventoryItemHover(this, 1)" onmouseout="inventoryItemReset(this, 1)" onmousedown="inventoryItemClick(this, 1, event)" oncontextmenu="equipInventoryItem(event, 1)"></div>
+
+            <div id="inventoryItem2" class="button ui-draggable" style="position: absolute; left: 40px; top: 23px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 140px 70px;" onmouseover="inventoryItemHover(this, 2)" onmouseout="inventoryItemReset(this, 2)" onmousedown="inventoryItemClick(this, 2, event)" oncontextmenu="equipInventoryItem(event, 2)"></div>
+
+            <div id="inventoryItem3" class="button ui-draggable" style="position: absolute; left: 76px; top: 23px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 35px 70px;" onmouseover="inventoryItemHover(this, 3)" onmouseout="inventoryItemReset(this, 3)" onmousedown="inventoryItemClick(this, 3, event)" oncontextmenu="equipInventoryItem(event, 3)"></div>
+
+            <div id="inventoryItem4" class="button ui-draggable" style="position: absolute; left: 112px; top: 23px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 105px 70px;" onmouseover="inventoryItemHover(this, 4)" onmouseout="inventoryItemReset(this, 4)" onmousedown="inventoryItemClick(this, 4, event)" oncontextmenu="equipInventoryItem(event, 4)"></div>
+
+            <div id="inventoryItem5" class="button ui-draggable" style="position: absolute; left: 148px; top: 23px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 210px 70px;" onmouseover="inventoryItemHover(this, 5)" onmouseout="inventoryItemReset(this, 5)" onmousedown="inventoryItemClick(this, 5, event)" oncontextmenu="equipInventoryItem(event, 5)"></div>
+            <!-- -->
+
+            <!-- inventory SLOTS ROW 2 -->
+            <div id="inventoryItem6" class="button ui-draggable" style="position: absolute; left: 4px; top: 59px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 140px 70px;" onmouseover="inventoryItemHover(this, 6)" onmouseout="inventoryItemReset(this, 6)" onmousedown="inventoryItemClick(this, 6, event)" oncontextmenu="equipInventoryItem(event, 6)"></div>
+
+            <div id="inventoryItem7" class="button ui-draggable" style="position: absolute; left: 40px; top: 59px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 245px 70px;" onmouseover="inventoryItemHover(this, 7)" onmouseout="inventoryItemReset(this, 7)" onmousedown="inventoryItemClick(this, 7, event)" oncontextmenu="equipInventoryItem(event, 7)"></div>
+
+            <div id="inventoryItem8" class="button ui-draggable" style="position: absolute; left: 76px; top: 59px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 105px 70px;" onmouseover="inventoryItemHover(this, 8)" onmouseout="inventoryItemReset(this, 8)" onmousedown="inventoryItemClick(this, 8, event)" oncontextmenu="equipInventoryItem(event, 8)"></div>
+
+            <div id="inventoryItem9" class="button ui-draggable" style="position: absolute; left: 112px; top: 59px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 9)" onmouseout="inventoryItemReset(this, 9)" onmousedown="inventoryItemClick(this, 9, event)" oncontextmenu="equipInventoryItem(event, 9)"></div>
+
+            <div id="inventoryItem10" class="button ui-draggable" style="position: absolute; left: 148px; top: 59px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 10)" onmouseout="inventoryItemReset(this, 10)" onmousedown="inventoryItemClick(this, 10, event)" oncontextmenu="equipInventoryItem(event, 10)"></div>
+            <!-- -->
+
+            <!-- inventory SLOTS ROW 3 -->
+            <div id="inventoryItem11" class="button ui-draggable" style="position: absolute; left: 4px; top: 95px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 11)" onmouseout="inventoryItemReset(this, 11)" onmousedown="inventoryItemClick(this, 11, event)" oncontextmenu="equipInventoryItem(event, 11)"></div>
+
+            <div id="inventoryItem12" class="button ui-draggable" style="position: absolute; left: 40px; top: 95px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 12)" onmouseout="inventoryItemReset(this, 12)" onmousedown="inventoryItemClick(this, 12, event)" oncontextmenu="equipInventoryItem(event, 12)"></div>
+
+            <div id="inventoryItem13" class="button ui-draggable" style="position: absolute; left: 76px; top: 95px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 13)" onmouseout="inventoryItemReset(this, 13)" onmousedown="inventoryItemClick(this, 13, event)" oncontextmenu="equipInventoryItem(event, 13)"></div>
+
+            <div id="inventoryItem14" class="button ui-draggable" style="position: absolute; left: 112px; top: 95px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 14)" onmouseout="inventoryItemReset(this, 14)" onmousedown="inventoryItemClick(this, 14, event)" oncontextmenu="equipInventoryItem(event, 14)"></div>
+
+            <div id="inventoryItem15" class="button ui-draggable" style="position: absolute; left: 148px; top: 95px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 15)" onmouseout="inventoryItemReset(this, 15)" onmousedown="inventoryItemClick(this, 15, event)" oncontextmenu="equipInventoryItem(event, 15)"></div>
+            <!-- -->
+
+            <!-- inventory SLOTS ROW 4 -->
+            <div id="inventoryItem16" class="button ui-draggable" style="position: absolute; left: 4px; top: 131px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 16)" onmouseout="inventoryItemReset(this, 16)" onmousedown="inventoryItemClick(this, 16, event)" oncontextmenu="equipInventoryItem(event, 16)"></div>
+
+            <div id="inventoryItem17" class="button ui-draggable" style="position: absolute; left: 40px; top: 131px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 17)" onmouseout="inventoryItemReset(this, 17)" onmousedown="inventoryItemClick(this, 17, event)" oncontextmenu="equipInventoryItem(event, 17)"></div>
+
+            <div id="inventoryItem18" class="button ui-draggable" style="position: absolute; left: 76px; top: 131px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 18)" onmouseout="inventoryItemReset(this, 18)" onmousedown="inventoryItemClick(this, 18, event)" oncontextmenu="equipInventoryItem(event, 18)"></div>
+
+            <div id="inventoryItem19" class="button ui-draggable" style="position: absolute; left: 112px; top: 131px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 19)" onmouseout="inventoryItemReset(this, 19)" onmousedown="inventoryItemClick(this, 19, event)" oncontextmenu="equipInventoryItem(event, 19)"></div>
+
+            <div id="inventoryItem20" class="button ui-draggable" style="position: absolute; left: 148px; top: 131px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 20)" onmouseout="inventoryItemReset(this, 20)" onmousedown="inventoryItemClick(this, 20, event)" oncontextmenu="equipInventoryItem(event, 20)"></div>
+            <!-- -->
+
+            <!-- inventory SLOTS ROW 5 -->
+            <div id="inventoryItem21" class="button ui-draggable" style="position: absolute; left: 4px; top: 167px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 21)" onmouseout="inventoryItemReset(this, 21)" onmousedown="inventoryItemClick(this, 21, event)" oncontextmenu="equipInventoryItem(event, 21)"></div>
+
+            <div id="inventoryItem22" class="button ui-draggable" style="position: absolute; left: 40px; top: 167px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 22)" onmouseout="inventoryItemReset(this, 22)" onmousedown="inventoryItemClick(this, 22, event)" oncontextmenu="equipInventoryItem(event, 22)"></div>
+
+            <div id="inventoryItem23" class="button ui-draggable" style="position: absolute; left: 76px; top: 167px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 23)" onmouseout="inventoryItemReset(this, 23)" onmousedown="inventoryItemClick(this, 23, event)" oncontextmenu="equipInventoryItem(event, 23)"></div>
+
+            <div id="inventoryItem24" class="button ui-draggable" style="position: absolute; left: 112px; top: 167px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 24)" onmouseout="inventoryItemReset(this, 24)" onmousedown="inventoryItemClick(this, 24, event)" oncontextmenu="equipInventoryItem(event, 24)"></div>
+
+            <div id="inventoryItem25" class="button ui-draggable" style="position: absolute; left: 148px; top: 167px; z-index: 1; width: 35px; height: 35px" onmouseover="inventoryItemHover(this, 25)" onmouseout="inventoryItemReset(this, 25)" onmousedown="inventoryItemClick(this, 25, event)" oncontextmenu="equipInventoryItem(event, 25)"></div>
+            <!-- -->
+
+            <div id="inventoryWindowSellAllButton" class="textButton" onmousedown="sellAllButtonClick()">Sell All</div>
+
+            <!-- Auto sell checkboxes -->
+            <div id="checkboxWhite" class="checkbox" style="display: none;">
+                <input type="checkbox" value="1" id="checkboxInput" class="checkboxInput" name="" onclick="sellAllCheckboxClicked(this, 1)">
+                <label for="checkboxInput" class="backgroundWhite"></label>
+            </div>
+            <div id="checkboxGreen" class="checkbox" style="display: none;">
+                <input type="checkbox" value="1" id="checkboxInput2" class="checkboxInput" name="" onclick="sellAllCheckboxClicked(this, 2)">
+                <label for="checkboxInput2" class="backgroundGreen"></label>
+            </div>
+            <div id="checkboxBlue" class="checkbox" style="display: none;">
+                <input type="checkbox" value="1" id="checkboxInput3" class="checkboxInput" name="" onclick="sellAllCheckboxClicked(this, 3)">
+                <label for="checkboxInput3" class="backgroundBlue"></label>
+            </div>
+            <div id="checkboxPurple" class="checkbox" style="display: none;">
+                <input type="checkbox" value="1" id="checkboxInput4" class="checkboxInput" name="" onclick="sellAllCheckboxClicked(this, 4)">
+                <label for="checkboxInput4" class="backgroundPurple"></label>
+            </div>
+            <div id="checkboxOrange" class="checkbox" style="display: none;">
+                <input type="checkbox" value="1" id="checkboxInput5" class="checkboxInput" name="" onclick="sellAllCheckboxClicked(this, 5)">
+                <label for="checkboxInput5" class="backgroundOrange"></label>
+            </div>
+
+            <div id="inventoryWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+        </div>
+
+        <div id="characterWindow" oncontextmenu="return false" style="display: none;" class="ui-draggable">
+            <!-- EQUIPMENT AREA -->
+            <div id="characterWindowTitle">Character</div>
+
+            <!-- The area the character icon is, allowing easier item equipping -->
+            <div id="characterIconArea"></div>
+
+            <!-- LEFT EQUIP COLUMN -->
+            <div id="equipItem" class="equipItem1 ui-draggable" style="position: absolute; left: 4px; top: 23px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 0px 70px;" onmouseover="equipItemHover(this, 1)" onmouseout="equipItemReset(this, 1)" onmousedown="equipItemClick(this, 1)" oncontextmenu="equipItemRightClick(event, 1)"></div>
+
+            <div id="equipItem" class="equipItem2 ui-draggable" style="position: absolute; left: 4px; top: 59px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 280px 70px;" onmouseover="equipItemHover(this, 2)" onmouseout="equipItemReset(this, 2)" onmousedown="equipItemClick(this, 2)" oncontextmenu="equipItemRightClick(event, 2)"></div>
+
+            <div id="equipItem" class="equipItem3 ui-draggable" style="position: absolute; left: 4px; top: 95px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 245px 105px;" onmouseover="equipItemHover(this, 3)" onmouseout="equipItemReset(this, 3)" onmousedown="equipItemClick(this, 3)" oncontextmenu="equipItemRightClick(event, 3)"></div>
+
+            <div id="equipItem" class="equipItem4 ui-draggable" style="position: absolute; left: 4px; top: 131px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 210px 35px;" onmouseover="equipItemHover(this, 4)" onmouseout="equipItemReset(this, 4)" onmousedown="equipItemClick(this, 4)" oncontextmenu="equipItemRightClick(event, 4)"></div>
+
+            <div id="equipItem" class="equipItem5 ui-draggable" style="position: absolute; left: 4px; top: 167px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 175px 105px;" onmouseover="equipItemHover(this, 5)" onmouseout="equipItemReset(this, 5)" onmousedown="equipItemClick(this, 5)" oncontextmenu="equipItemRightClick(event, 5)"></div>
+            <!-- -->
+
+            <!-- RIGHT EQUIP COLUMN -->
+            <div id="equipItem" class="equipItem6 ui-draggable" style="position: absolute; left: 148px; top: 23px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 140px 70px;" onmouseover="equipItemHover(this, 6)" onmouseout="equipItemReset(this, 6)" onmousedown="equipItemClick(this, 6)" oncontextmenu="equipItemRightClick(event, 6)"></div>
+
+            <div id="equipItem" class="equipItem7 ui-draggable" style="position: absolute; left: 148px; top: 59px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 105px 70px;" onmouseover="equipItemHover(this, 7)" onmouseout="equipItemReset(this, 7)" onmousedown="equipItemClick(this, 7)" oncontextmenu="equipItemRightClick(event, 7)"></div>
+
+            <div id="equipItem" class="equipItem8 ui-draggable" style="position: absolute; left: 148px; top: 95px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 70px 105px;" onmouseover="equipItemHover(this, 8)" onmouseout="equipItemReset(this, 8)" onmousedown="equipItemClick(this, 8)" oncontextmenu="equipItemRightClick(event, 8)"></div>
+
+            <div id="equipItem" class="equipItem9 ui-draggable" style="position: absolute; left: 148px; top: 131px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 70px 70px;" onmouseover="equipItemHover(this, 9)" onmouseout="equipItemReset(this, 9)" onmousedown="equipItemClick(this, 9)" oncontextmenu="equipItemRightClick(event, 9)"></div>
+
+            <div id="equipItem" class="equipItem10 ui-draggable" style="position: absolute; left: 148px; top: 167px; z-index: 1; width: 35px; height: 35px; background: url(includes/images/itemSheet3.png) 35px 70px;" onmouseover="equipItemHover(this, 10)" onmouseout="equipItemReset(this, 10)" onmousedown="equipItemClick(this, 10)" oncontextmenu="equipItemRightClick(event, 10)"></div>
+
+            <div id="statsArea">
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="level">Level:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="levelValue">49</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="health">Health:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="healthValue">3757/3757</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="hp5" onmouseover="hp5StatHover(this)" onmouseout="statTooltipReset()">Hp5:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="hp5Value">1089.00</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="damage">Damage:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="damageValue">605 - 997</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="damageBonus" onmouseover="damageBonusStatHover(this)" onmouseout="statTooltipReset()">Damage Bonus:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="damageBonusValue">565%</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="armour" onmouseover="armourStatHover(this)" onmouseout="statTooltipReset()">Armour:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="armourValue">660.00 (56.33%)</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="evasion" onmouseover="evasionStatHover(this)" onmouseout="statTooltipReset()">Evasion:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="evasionValue">0.00 (0.00%)</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="strength" onmouseover="strengthStatHover(this)" onmouseout="statTooltipReset()">Strength:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="strengthValue">215</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="stamina" onmouseover="staminaStatHover(this)" onmouseout="statTooltipReset()">Stamina:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="staminaValue">130</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="agility" onmouseover="agilityStatHover(this)" onmouseout="statTooltipReset()">Agility:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="agilityValue">126</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="critChance" onmouseover="critChanceStatHover(this)" onmouseout="statTooltipReset()">Crit Chance:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="critChanceValue">77.00%</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="critDamage" onmouseover="critDamageStatHover(this)" onmouseout="statTooltipReset()">Crit Damage:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="critDamageValue">336.00%</div>
+                    </div>
+                </div>
+
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="itemRarity" onmouseover="itemRarityStatHover(this)" onmouseout="statTooltipReset()">Item Rarity:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="itemRarityValue">206.00%</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="goldGain" onmouseover="goldGainStatHover(this)" onmouseout="statTooltipReset()">Gold Gain:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="goldGainValue">271.00%</div>
+                    </div>
+                </div>
+                <div class="statContainer">
+                    <div class="statNameContainer">
+                        <div id="experienceGain" onmouseover="expGainStatHover(this)" onmouseout="statTooltipReset()">Exp Gain:</div>
+                    </div>
+                    <div class="statValueContainer">
+                        <div id="experienceGainValue">205.20%</div>
+                    </div>
+                </div>
+            </div>
+            <div id="characterWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+        </div>
+
+        <div id="mercenariesWindow" style="display: none;" class="ui-draggable">
+            <div id="mercenariesWindowTitle">Mercenaries</div>
+            <div id="mercenariesBuyArea">
+                <div id="footmanBuyButton" class="buyButton" onmouseover="footmanBuyButtonMouseOver(this)" onmouseout="footmanBuyButtonMouseOut(this)" onmousedown="footmanBuyButtonMouseDown(this)" onmouseup="footmanBuyButtonMouseOver(this)">
+                    <div id="mercenaryTextArea" class="buyButtonArea">
+                        <div id="footmanIcon" class="buyButtonIcon"></div>
+                        <div id="footmanName" class="mercenaryName">Footman</div>
+                        <div id="footmanGoldCoin" class="goldCoin" style="position: absolute; top: 16px; left: 41px; width: 12px; height: 12px"></div>
+                        <div id="footmanCost" class="mercenaryCost">203,960</div>
+                        <div id="footmenOwned" class="mercenaryAmount">71</div>
+                    </div>
+                </div>
+                <div id="clericBuyButton" class="buyButton" onmouseover="clericBuyButtonMouseOver(this)" onmouseout="clericBuyButtonMouseOut(this)" onmousedown="clericBuyButtonMouseDown(this)" onmouseup="clericBuyButtonMouseOver(this)">
+                    <div id="mercenaryTextArea" class="buyButtonArea">
+                        <div id="clericIcon" class="buyButtonIcon"></div>
+                        <div id="clericName" class="mercenaryName">Cleric</div>
+                        <div id="clericGoldCoin" class="goldCoin" style="position: absolute; top: 16px; left: 41px; width: 12px; height: 12px"></div>
+                        <div id="clericCost" class="mercenaryCost">216,731</div>
+                        <div id="clericsOwned" class="mercenaryAmount">50</div>
+                    </div>
+                </div>
+                <div id="commanderBuyButton" class="buyButton" onmouseover="commanderBuyButtonMouseOver(this)" onmouseout="commanderBuyButtonMouseOut(this)" onmousedown="commanderBuyButtonMouseDown(this)" onmouseup="commanderBuyButtonMouseOver(this)">
+                    <div id="mercenaryTextArea" class="buyButtonArea">
+                        <div id="commanderIcon" class="buyButtonIcon"></div>
+                        <div id="commanderName" class="mercenaryName">Commander</div>
+                        <div id="commanderGoldCoin" class="goldCoin" style="position: absolute; top: 16px; left: 41px; width: 12px; height: 12px"></div>
+                        <div id="commanderCost" class="mercenaryCost">304,574</div>
+                        <div id="commandersOwned" class="mercenaryAmount">31</div>
+                    </div>
+                </div>
+                <div id="mageBuyButton" class="buyButton" onmouseover="mageBuyButtonMouseOver(this)" onmouseout="mageBuyButtonMouseOut(this)" onmousedown="mageBuyButtonMouseDown(this)" onmouseup="mageBuyButtonMouseOver(this)">
+                    <div id="mercenaryTextArea" class="buyButtonArea">
+                        <div id="mageIcon" class="buyButtonIcon"></div>
+                        <div id="mageName" class="mercenaryName">Mage</div>
+                        <div id="mageGoldCoin" class="goldCoin" style="position: absolute; top: 16px; left: 41px; width: 12px; height: 12px"></div>
+                        <div id="mageCost" class="mercenaryCost">1,138,541</div>
+                        <div id="magesOwned" class="mercenaryAmount">19</div>
+                    </div>
+                </div>
+                <div id="assassinBuyButton" class="buyButton" onmouseover="assassinBuyButtonMouseOver(this)" onmouseout="assassinBuyButtonMouseOut(this)" onmousedown="assassinBuyButtonMouseDown(this)" onmouseup="assassinBuyButtonMouseOver(this)">
+                    <div id="mercenaryTextArea" class="buyButtonArea">
+                        <div id="assassinIcon" class="buyButtonIcon"></div>
+                        <div id="assassinName" class="mercenaryName">Assassin</div>
+                        <div id="assassinGoldCoin" class="goldCoin" style="position: absolute; top: 16px; left: 41px; width: 12px; height: 12px"></div>
+                        <div id="assassinCost" class="mercenaryCost">8,560,400</div>
+                        <div id="assassinsOwned" class="mercenaryAmount">12</div>
+                    </div>
+                </div>
+                <div id="warlockBuyButton" class="buyButton" onmouseover="warlockBuyButtonMouseOver(this)" onmouseout="warlockBuyButtonMouseOut(this)" onmousedown="warlockBuyButtonMouseDown(this)" onmouseup="warlockBuyButtonMouseOver(this)">
+                    <div id="mercenaryTextArea" class="buyButtonArea">
+                        <div id="warlockIcon" class="buyButtonIcon"></div>
+                        <div id="warlockName" class="mercenaryName">Warlock</div>
+                        <div id="warlockGoldCoin" class="goldCoin" style="position: absolute; top: 16px; left: 41px; width: 12px; height: 12px"></div>
+                        <div id="warlockCost" class="mercenaryCost">85,120,636</div>
+                        <div id="warlocksOwned" class="mercenaryAmount">7</div>
+                    </div>
+                </div>
+            </div>
+            <div id="mercenariesWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+        </div>
+
+        <div id="upgradesWindow" style="display: none;" class="ui-draggable">
+            <div id="upgradesWindowTitle">Upgrades</div>
+            <div id="upgradesBuyArea">
+                <div id="upgradePurchaseButton1" class="buyButton"><div class="buyButtonArea"><div class="buyButtonIcon button" style="background: url(includes/images/bigIcons.png) 200px 40px;"></div><div id="upgradeName1" class="mercenaryName">Vendor</div><div id="upgradeCost1" class="mercenaryAmount" style="left: 53px;">21,200</div><div id="upgradeCoin1" class="goldCoin" style="position: absolute; top: 28px; width: 12px; height: 12px; left: 41px;"></div></div></div><div id="upgradePurchaseButton2" class="buyButton"><div class="buyButtonArea"><div class="buyButtonIcon button" style="background: url(includes/images/bigIcons.png) 200px 40px;"></div><div id="upgradeName2" class="mercenaryName">Trader</div><div id="upgradeCost2" class="mercenaryAmount" style="left: 53px;">105,200</div><div id="upgradeCoin2" class="goldCoin" style="position: absolute; top: 28px; width: 12px; height: 12px; left: 41px;"></div></div></div><div id="upgradePurchaseButton3" class="buyButton"><div class="buyButtonArea"><div class="buyButtonIcon button" style="background: url(includes/images/bigIcons.png) 200px 40px;"></div><div id="upgradeName3" class="mercenaryName">Merchant</div><div id="upgradeCost3" class="mercenaryAmount" style="left: 53px;">683,200</div><div id="upgradeCoin3" class="goldCoin" style="position: absolute; top: 28px; width: 12px; height: 12px; left: 41px;"></div></div></div><div id="upgradePurchaseButton4" class="buyButton"><div class="buyButtonArea"><div class="buyButtonIcon button" style="background: url(includes/images/bigIcons.png) 200px 40px;"></div><div id="upgradeName4" class="mercenaryName">Storekeeper</div><div id="upgradeCost4" class="mercenaryAmount" style="left: 53px;">2,519,200</div><div id="upgradeCoin4" class="goldCoin" style="position: absolute; top: 28px; width: 12px; height: 12px; left: 41px;"></div></div></div><div id="upgradePurchaseButton5" class="buyButton"><div class="buyButtonArea"><div class="buyButtonIcon button" style="background: url(includes/images/bigIcons.png) 200px 40px;"></div><div id="upgradeName5" class="mercenaryName">Operator</div><div id="upgradeCost5" class="mercenaryAmount" style="left: 53px;">18,875,800</div><div id="upgradeCoin5" class="goldCoin" style="position: absolute; top: 28px; width: 12px; height: 12px; left: 41px;"></div></div></div></div>
+            <div id="upgradesWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+        </div>
+
+        <div id="questsWindow" style="display: none;" class="ui-draggable">
+            <div id="questsWindowTitle">Quests</div>
+            <div id="questNamesArea" style="display: none;">
+            </div>
+            <div id="questDisplayArea">
+                <div id="questTextArea" style="display: none;">
+                    <div id="questTitle"></div>
+                    <div id="questGoal"></div>
+                    <div id="questProgress"></div>
+                    <div id="questDescription"></div>
+                    <div id="questReward"></div>
+                    <div id="questRewardText"></div>
+                    <div id="questGoldCoin" class="goldCoin" style="width: 12px; height: 12px"></div>
+                    <div id="questGold"></div>
+                    <div id="questExperienceOrb" class="expOrb" style="width: 12px; height: 12px"></div>
+                    <div id="questExperience"></div>
+                </div>
+            </div>
+            <div id="questsWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+        </div>
+
+        <div id="statUpgradesWindow" style="display: none;">
+            <div id="statUpgradesWindowTitle">Stat Upgrade</div>
+            <div id="statUpgradeButtonsContainer">
+                <div id="statUpgradeButton1" class="statUpgradeButton button" onmouseover="statUpgradeButtonHover(this, 1)" onmouseout="statUpgradeButtonReset(this)" onmousedown="statUpgradeButtonClick(this, 1)" onmouseup="statUpgradeButtonReset(this)">
+                    <div id="statIcon1" class="buttonIcon statIcon"></div>
+                    <div id="statUpgradeNameContainer1" class="statUpgradeNameContainer">
+                        <div id="statUpgradeName1" class="statUpgradeName">Upgrade 1</div>
+                    </div>
+                </div>
+                <div id="statUpgradeButton2" class="statUpgradeButton button" style="top: 46px;" onmouseover="statUpgradeButtonHover(this, 2)" onmouseout="statUpgradeButtonReset(this)" onmousedown="statUpgradeButtonClick(this, 2)" onmouseup="statUpgradeButtonReset(this)">
+                    <div id="statIcon2" class="buttonIcon statIcon"></div>
+                    <div id="statUpgradeNameContainer1" class="statUpgradeNameContainer">
+                        <div id="statUpgradeName2" class="statUpgradeName"></div>
+                    </div>
+                </div>
+                <div id="statUpgradeButton3" class="statUpgradeButton button" style="top: 92px;" onmouseover="statUpgradeButtonHover(this, 3)" onmouseout="statUpgradeButtonReset(this)" onmousedown="statUpgradeButtonClick(this, 3)" onmouseup="statUpgradeButtonReset(this)">
+                    <div id="statIcon3" class="buttonIcon statIcon"></div>
+                    <div id="statUpgradeNameContainer1" class="statUpgradeNameContainer">
+                        <div id="statUpgradeName3" class="statUpgradeName"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="statUpgradesWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+        </div>
+
+        <div id="abilityUpgradesWindow" style="display: none;">
+            <div id="abilityUpgradesWindowTitle">Ability Upgrade</div>
+            <div id="abilityUpgradeButtonsContainer">
+                <div id="rendUpgradeButton" class="abilityUpgradeButton button" onmouseover="rendUpgradeButtonHover(this)" onmouseout="rendUpgradeButtonReset(this)" onmousedown="rendUpgradeButtonClick(this)" onmouseup="rendUpgradeButtonReset(this)">
+                    <div id="ablilityIcon1" class="buttonIcon rendIcon"></div>
+                    <div id="abilityUpgradeNameContainer1" class="abilityUpgradeNameContainer">
+                        <div id="rendUpgradeName" class="abilityUpgradeName">Rend</div>
+                    </div>
+                </div>
+                <div id="rejuvenatingStrikesUpgradeButton" class="abilityUpgradeButton button" onmouseover="rejuvenatingStrikesUpgradeButtonHover(this)" onmouseout="rejuvenatingStrikesUpgradeButtonReset(this)" onmousedown="rejuvenatingStrikesUpgradeButtonClick(this)" onmouseup="rejuvenatingStrikesUpgradeButtonReset(this)" style="top: 46px">
+                    <div id="ablilityIcon2" class="buttonIcon rejuvenatingStrikesIcon"></div>
+                    <div id="abilityUpgradeNameContainer1" class="abilityUpgradeNameContainer">
+                        <div id="rejuvenatingStrikesUpgradeName" class="abilityUpgradeName">Rejuvenating Strikes</div>
+                    </div>
+                </div>
+                <div id="iceBladeUpgradeButton" class="abilityUpgradeButton button" onmouseover="iceBladeUpgradeButtonHover(this)" onmouseout="iceBladeUpgradeButtonReset(this)" onmousedown="iceBladeUpgradeButtonClick(this)" onmouseup="iceBladeUpgradeButtonReset(this)" style="top: 92px">
+                    <div id="ablilityIcon3" class="buttonIcon iceBladeIcon"></div>
+                    <div id="abilityUpgradeNameContainer1" class="abilityUpgradeNameContainer">
+                        <div id="iceBladeUpgradeName" class="abilityUpgradeName">Ice Blade</div>
+                    </div>
+                </div>
+                <div id="fireBladeUpgradeButton" class="abilityUpgradeButton button" onmouseover="fireBladeUpgradeButtonHover(this)" onmouseout="fireBladeUpgradeButtonReset(this)" onmousedown="fireBladeUpgradeButtonClick(this)" onmouseup="fireBladeUpgradeButtonReset(this)" style="top: 138px">
+                    <div id="ablilityIcon4" class="buttonIcon fireBladeIcon"></div>
+                    <div id="abilityUpgradeNameContainer1" class="abilityUpgradeNameContainer">
+                        <div id="fireBladeUpgradeName" class="abilityUpgradeName">Fire Blade</div>
+                    </div>
+                </div>
+            </div>
+            <div id="abilityUpgradesWindowCloseButton" class="closeButton button" onmouseover="closeButtonHover(this)" onmouseout="closeButtonReset(this)" onmousedown="closeButtonClick(this)" onmouseup="closeButtonReset(this)"></div>
+        </div>
+    </div>
+
+    <!-- ITEM TOOLTIP -->
+    <div id="itemTooltip" class="itemTooltip" style="position: absolute; top: 570px; left: 30px; z-index: 15; display: none;">
+        <div id="itemTooltipTitle" class="itemTooltipTitle"></div>
+        <div id="itemTooltipType" class="itemTooltipType"></div>
+        <div id="itemTooltipStats1" class="itemTooltipStats1"></div>
+        <div id="itemTooltipStats2" class="itemTooltipStats2"></div>
+        <div id="itemTooltipGoldCoin" class="goldCoin" style="width: 12px; height: 12px"></div>
+        <div id="itemTooltipSellValue" class="itemTooltipSellValue"></div>
+        <div id="itemTooltipLevel" class="itemTooltipLevel"></div>
+        <div id="itemTooltipUseInfo" class="itemTooltipUseInfo"></div>
+        <div id="itemTooltipSellInfo" class="itemTooltipSellInfo"></div>
+    </div>
+    <!-- -->
+
+    <!-- ITEM COMPARE TOOLTIP 1 -->
+    <div id="itemCompareTooltip" class="itemTooltip" style="position: absolute; top: 570px; left: 30px; z-index: 15; display: none;">
+        <div id="itemCompareTooltipExtra" class="itemCompareTooltipExtra"></div>
+        <div id="itemCompareTooltipTitle" class="itemTooltipTitle"></div>
+        <div id="itemCompareTooltipType" class="itemTooltipType"></div>
+        <div id="itemCompareTooltipStats1" class="itemTooltipStats1"></div>
+        <div id="itemCompareTooltipStats2" class="itemTooltipStats2"></div>
+        <div id="itemCompareTooltipGoldCoin" class="goldCoin" style="width: 12px; height: 12px"></div>
+        <div id="itemCompareTooltipSellValue" class="itemTooltipSellValue"></div>
+        <div id="itemCompareTooltipLevel" class="itemTooltipLevel"></div>
+        <div id="itemCompareTooltipUseInfo" class="itemTooltipUseInfo"></div>
+        <div id="itemCompareTooltipSellInfo" class="itemTooltipSellInfo"></div>
+    </div>
+    <!-- -->
+
+    <!-- ITEM COMPARE TOOLTIP 2 -->
+    <div id="itemCompareTooltip2" class="itemTooltip" style="position: absolute; top: 570px; left: 30px; z-index: 15; display: none;">
+        <div id="itemCompareTooltip2Extra" class="itemCompareTooltipExtra"></div>
+        <div id="itemCompareTooltip2Title" class="itemTooltipTitle"></div>
+        <div id="itemCompareTooltip2Type" class="itemTooltipType"></div>
+        <div id="itemCompareTooltip2Stats1" class="itemTooltipStats1"></div>
+        <div id="itemCompareTooltip2Stats2" class="itemTooltipStats2"></div>
+        <div id="itemCompareTooltip2GoldCoin" class="goldCoin" style="width: 12px; height: 12px"></div>
+        <div id="itemCompareTooltip2SellValue" class="itemTooltipSellValue"></div>
+        <div id="itemCompareTooltip2Level" class="itemTooltipLevel"></div>
+        <div id="itemCompareTooltip2UseInfo" class="itemTooltipUseInfo"></div>
+        <div id="itemCompareTooltip2SellInfo" class="itemTooltipSellInfo"></div>
+    </div>
+    <!-- -->
+
+    <!-- OTHER TOOLTIP -->
+    <div id="otherTooltip" style="position: absolute; top: 570px; left: 30px; z-index: 15; display: none;">
+        <div id="otherTooltipCooldown" class="otherTooltipText"></div>
+        <div id="otherTooltipTitle" class="otherTooltipText"></div>
+        <div id="otherTooltipLevel" class="otherTooltipText"></div>
+        <div id="otherTooltipDescription" class="otherTooltipText"></div>
+    </div>
+    <!-- -->
+
+    <!-- ABILITY UPGRADE TOOLTIP -->
+    <div id="abilityUpgradeTooltip" style="position: absolute; top: 570px; left: 30px; z-index: 15; display: none;">
+        <div id="abilityUpgradeTooltipCooldown" class="abilityUpgradeTooltipText"></div>
+        <div id="abilityUpgradeTooltipTitle" class="abilityUpgradeTooltipText"></div>
+        <div id="abilityUpgradeTooltipLevel" class="abilityUpgradeTooltipText abilityUpgradeTooltipLevel"></div>
+        <div id="abilityUpgradeTooltipDescription" class="abilityUpgradeTooltipText abilityUpgradeTooltipDescription"></div>
+        <div id="abilityUpgradeTooltipLevel2" class="abilityUpgradeTooltipText abilityUpgradeTooltipLevel"></div>
+        <div id="abilityUpgradeTooltipDescription2" class="abilityUpgradeTooltipText abilityUpgradeTooltipDescription"></div>
+    </div>
+    <!-- -->
+
+    <!-- BASIC TOOLTIP -->
+    <div id="basicTooltip" style="position: absolute; top: 570px; left: 30px; z-index: 15; display: none;">
+        <div id="basicTooltipText"></div>
+    </div>
+    <!-- -->
+</div>
+
+<script src="PageEnd.js"></script>
+
+</body></html>

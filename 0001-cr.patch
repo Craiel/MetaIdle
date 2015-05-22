@@ -1,0 +1,268 @@
+From e7afb4ea25e9f6eec55875eb662cde770220dac6 Mon Sep 17 00:00:00 2001
+From: unknown <none@none.org>
+Date: Thu, 21 May 2015 17:28:18 -0400
+Subject: [PATCH 1/1] cr
+
+---
+ Applications/CrystalBuild/BuildConfig.cs           |  2 +
+ .../CarbonCore.Applications.CrystalBuild.csproj    | 10 ++---
+ Applications/CrystalBuild/Logic/BuildLogic.cs      | 47 +++++++++++++++++++++-
+ .../CrystalBuild/Logic/ProcessingContext.cs        |  4 ++
+ .../CrystalBuild/Logic/Processors/CssProcessor.cs  | 16 +++-----
+ Applications/CrystalBuild/Main.cs                  | 46 ++++++++++++++-------
+ 6 files changed, 92 insertions(+), 33 deletions(-)
+
+diff --git a/Applications/CrystalBuild/BuildConfig.cs b/Applications/CrystalBuild/BuildConfig.cs
+index b8cb7f5..d4dc141 100644
+--- a/Applications/CrystalBuild/BuildConfig.cs
++++ b/Applications/CrystalBuild/BuildConfig.cs
+@@ -12,6 +12,8 @@ public class BuildConfig
+ 
+         public string Name { get; set; }
+ 
++        public bool ExportSourceAsModule { get; set; }
++
+         public CarbonDirectoryFilter[] Data { get; set; }
+         public CarbonDirectoryFilter[] Templates { get; set; }
+         public CarbonDirectoryFilter[] Sources { get; set; }
+diff --git a/Applications/CrystalBuild/CarbonCore.Applications.CrystalBuild.csproj b/Applications/CrystalBuild/CarbonCore.Applications.CrystalBuild.csproj
+index f08fdd5..a36b422 100644
+--- a/Applications/CrystalBuild/CarbonCore.Applications.CrystalBuild.csproj
++++ b/Applications/CrystalBuild/CarbonCore.Applications.CrystalBuild.csproj
+@@ -37,14 +37,14 @@
+   </PropertyGroup>
+   <ItemGroup>
+     <Reference Include="Autofac">
+-      <HintPath>..\..\..\CarbonCore\External\Autofac\3.1.1\Autofac.dll</HintPath>
++      <HintPath>..\..\External\Autofac\3.1.1\Autofac.dll</HintPath>
+     </Reference>
+     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, processorArchitecture=MSIL">
+       <SpecificVersion>False</SpecificVersion>
+       <HintPath>..\..\External\NPOI\ICSharpCode.SharpZipLib.dll</HintPath>
+     </Reference>
+     <Reference Include="Newtonsoft.Json">
+-      <HintPath>..\..\..\CarbonCore\External\Json.NET\Json60r6\Net45\Newtonsoft.Json.dll</HintPath>
++      <HintPath>..\..\External\Json.NET\Json60r6\Net45\Newtonsoft.Json.dll</HintPath>
+     </Reference>
+     <Reference Include="NPOI">
+       <HintPath>..\..\External\NPOI\NPOI.dll</HintPath>
+@@ -59,7 +59,7 @@
+       <HintPath>..\..\External\NPOI\NPOI.OpenXmlFormats.dll</HintPath>
+     </Reference>
+     <Reference Include="SharpLZW">
+-      <HintPath>..\..\..\CarbonCore\External\SharpLZW\SharpLZW.dll</HintPath>
++      <HintPath>..\..\External\SharpLZW\SharpLZW.dll</HintPath>
+     </Reference>
+     <Reference Include="System" />
+     <Reference Include="System.Configuration" />
+@@ -103,11 +103,11 @@
+     <None Include="App.config" />
+   </ItemGroup>
+   <ItemGroup>
+-    <ProjectReference Include="..\..\..\CarbonCore\UtilsCommandLine\CarbonCore.UtilsCommandLine.csproj">
++    <ProjectReference Include="..\..\UtilsCommandLine\CarbonCore.UtilsCommandLine.csproj">
+       <Project>{E99C6721-99A5-4DC3-BD9D-DC88F65D217A}</Project>
+       <Name>CarbonCore.UtilsCommandLine</Name>
+     </ProjectReference>
+-    <ProjectReference Include="..\..\..\CarbonCore\Utils\CarbonCore.Utils.csproj">
++    <ProjectReference Include="..\..\Utils\CarbonCore.Utils.csproj">
+       <Project>{E05836D9-0BB3-4BFA-89E6-F5ED40A9D93C}</Project>
+       <Name>CarbonCore.Utils</Name>
+     </ProjectReference>
+diff --git a/Applications/CrystalBuild/Logic/BuildLogic.cs b/Applications/CrystalBuild/Logic/BuildLogic.cs
+index f642c25..78d570e 100644
+--- a/Applications/CrystalBuild/Logic/BuildLogic.cs
++++ b/Applications/CrystalBuild/Logic/BuildLogic.cs
+@@ -9,7 +9,9 @@
+ 
+     using CrystalBuild.Contracts;
+     using CrystalBuild.Contracts.Processors;
+-    
++
++    using NPOI.SS.Formula.Functions;
++
+     public class BuildLogic : IBuildLogic
+     {
+         private readonly IFactory factory;
+@@ -27,7 +29,48 @@ public BuildLogic(IFactory factory)
+         // -------------------------------------------------------------------
+         public void Build(IList<CarbonFileResult> sources, CarbonFile target, ProcessingContext context)
+         {
+-            this.DoBuildMultipleToOne<IJavaScriptProcessor>("Sources", sources, target, context);
++            if (context.ExportSourceAsModule)
++            {
++                // Todo
++            }
++
++            System.Diagnostics.Trace.TraceInformation("Building {0} {1} into {2}", sources.Count, "Sources", target);
++
++            var processor = this.factory.Resolve<IJavaScriptProcessor>();
++            System.Diagnostics.Trace.Assert(processor != null);
++
++            processor.SetContext(context);
++            foreach (CarbonFileResult file in sources)
++            {
++                System.Diagnostics.Trace.TraceInformation("  {0}", file.Absolute.FileName);
++                processor.Process(file.Absolute);
++            }
++
++            CarbonDirectory targetDirectory = target.GetDirectory();
++            if (!targetDirectory.IsNull && !targetDirectory.Exists)
++            {
++                targetDirectory.Create();
++            }
++
++            using (var stream = target.OpenCreate())
++            {
++                using (var writer = new StreamWriter(stream, Encoding.UTF8, 4096, true))
++                {
++                    if (context.ExportSourceAsModule)
++                    {
++                        writer.Write("declare('{0}', function() {{\n", context.Name);
++                    }
++
++                    writer.Write(processor.GetData());
++
++                    if (context.ExportSourceAsModule)
++                    {
++                        writer.Write("});");
++                    }
++                }
++            }
++
++            this.TraceProcessorResult(processor, string.Format("Building {0}", "Sources"));
+         }
+ 
+         public void BuildTemplates(IList<CarbonFileResult> sources, CarbonFile target, ProcessingContext context)
+diff --git a/Applications/CrystalBuild/Logic/ProcessingContext.cs b/Applications/CrystalBuild/Logic/ProcessingContext.cs
+index fa1f191..123cad4 100644
+--- a/Applications/CrystalBuild/Logic/ProcessingContext.cs
++++ b/Applications/CrystalBuild/Logic/ProcessingContext.cs
+@@ -23,8 +23,12 @@ public ProcessingContext(ProcessingCache cache)
+         // -------------------------------------------------------------------
+         // Public
+         // -------------------------------------------------------------------
++        public string Name { get; set; }
++
+         public bool IsDebug { get; set; }
+ 
++        public bool ExportSourceAsModule { get; set; }
++
+         public ProcessingCache Cache { get; private set; }
+         
+         public CarbonDirectory Root { get; set; }
+diff --git a/Applications/CrystalBuild/Logic/Processors/CssProcessor.cs b/Applications/CrystalBuild/Logic/Processors/CssProcessor.cs
+index f124fd2..3c9c7ed 100644
+--- a/Applications/CrystalBuild/Logic/Processors/CssProcessor.cs
++++ b/Applications/CrystalBuild/Logic/Processors/CssProcessor.cs
+@@ -22,7 +22,7 @@ public class CssProcessor : ContentProcessor, ICssProcessor
+                                                                     };
+ 
+         private static readonly Regex CommentRegex = new Regex(@"/\*(.*?)\*/");
+-        private static readonly Regex StyleRegex = new Regex(@"([\.\#])([a-z]+)(.*?)\{([^\}]*)\}", RegexOptions.IgnoreCase);
++        private static readonly Regex StyleRegex = new Regex(@"(.*?){([^\}]*)\}", RegexOptions.IgnoreCase);
+ 
+         private readonly IDictionary<string, CssStyle> styleDictionary;
+ 
+@@ -76,13 +76,7 @@ private string FormatStyles(IEnumerable<CssStyle> styles)
+             var builder = new StringBuilder();
+             foreach (CssStyle style in styles)
+             {
+-                builder.Append(style.IsStyle ? "." : "#");
+-                builder.Append(style.Name);
+-                if (!string.IsNullOrEmpty(style.StyleTarget))
+-                {
+-                    builder.Append(style.StyleTarget);
+-                }
+-
++                builder.Append(style.StyleTarget);
+                 builder.Append("{");
+                 foreach (string contentKey in style.Content.Keys)
+                 {
+@@ -114,11 +108,11 @@ private IList<CssStyle> AnalyzeStyleSheets(string data)
+                 var style = new CssStyle
+                 {
+                     IsStyle = match.Groups[1].Value.Trim() == ".",
+-                    Name = match.Groups[2].Value.Trim(),
+-                    StyleTarget = match.Groups[3].Value.Trim()
++                    Name = match.Groups[1].Value.Trim(),
++                    StyleTarget = match.Groups[1].Value.Trim()
+                 };
+ 
+-                string content = match.Groups[4].Value.Trim();
++                string content = match.Groups[2].Value.Trim();
+                 string[] contentSegments = content.Split(';');
+                 foreach (string segment in contentSegments)
+                 {
+diff --git a/Applications/CrystalBuild/Main.cs b/Applications/CrystalBuild/Main.cs
+index 671191a..7d774a3 100644
+--- a/Applications/CrystalBuild/Main.cs
++++ b/Applications/CrystalBuild/Main.cs
+@@ -123,25 +123,33 @@ private void DoBuildProject()
+                 IList<CarbonFileResult> files = CarbonDirectory.GetFiles(filters);
+                 CarbonFileResult mainFile = null;
+ 
+-                // Now we try to find the entry point file
+-                foreach (var file in files)
++                // Check if we have a specific main file
++                if (this.config.Current.SourceMain != null)
+                 {
+-                    if (file.Absolute.GetPath().EndsWith(this.config.Current.SourceMain.ToString(), StringComparison.OrdinalIgnoreCase))
++                    // Now we try to find the entry point file
++                    foreach (var file in files)
+                     {
+-                        mainFile = file;
+-                        break;
++                        if (file.Absolute.GetPath()
++                            .EndsWith(this.config.Current.SourceMain.ToString(), StringComparison.OrdinalIgnoreCase))
++                        {
++                            mainFile = file;
++                            break;
++                        }
+                     }
+-                }
+ 
+-                if (mainFile == null)
+-                {
+-                    Trace.TraceError("Could not find entry point: {0} ({1} files)", this.config.Current.SourceMain, files.Count);
+-                    return;
+-                }
++                    if (mainFile == null)
++                    {
++                        Trace.TraceError(
++                            "Could not find entry point: {0} ({1} files)",
++                            this.config.Current.SourceMain,
++                            files.Count);
++                        return;
++                    }
+ 
+-                // re-add the main file so it ends up as last in the block
+-                files.Remove(mainFile);
+-                files.Add(mainFile);
++                    // re-add the main file so it ends up as last in the block
++                    files.Remove(mainFile);
++                    files.Add(mainFile);
++                }
+ 
+                 if (files.Count > 0)
+                 {
+@@ -152,7 +160,15 @@ private void DoBuildProject()
+                         targetFile = targetFile.GetDirectory().ToFile(targetFile.FileNameWithoutExtension + "_raw.js");
+                     }
+ 
+-                    this.logic.Build(files, targetFile, new ProcessingContext(cache) { IsDebug = this.useDebug });
++                    this.logic.Build(
++                        files,
++                        targetFile,
++                        new ProcessingContext(cache)
++                        {
++                            Name = this.config.Current.Name,
++                            IsDebug = this.useDebug,
++                            ExportSourceAsModule = this.config.Current.ExportSourceAsModule
++                        });
+ 
+                     if (this.useClosure)
+                     {
+-- 
+1.9.5.msysgit.1
+

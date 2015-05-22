@@ -1,0 +1,165 @@
+.gcBackgroundMain {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	padding: 0;
+	margin: 0;
+
+	font-family: Helvetica, Arial, sans-serif;
+	background: #7968ac url("images/goomy_bg.jpg") no-repeat scroll center center;
+	background-size: 100% 100%;
+}
+
+
+.gcBackground {
+	position: absolute;
+	z-index: -10;
+}
+
+.gcContainer{
+	position: relative;
+	overflow: hidden;
+}
+
+.gcGameBox{
+	margin: 8px;
+	overflow: auto;
+}
+
+
+.gcLeftBarC{
+	width: 20%;
+	max-width: 200px;
+	position: relative;
+	vertical-align: top;
+}
+
+.gcRightBarC{
+	width: 20%;
+	max-width: 200px;
+	vertical-align: top;
+}
+
+.gcRightBarDiv{
+	height: 64px;
+	min-width: 200px;
+	padding: 6px;
+	margin: 2px;
+	overflow: hidden;
+	cursor: pointer;
+	background-color: #ae85f8;
+	border: 2px solid #7c48fe;
+	border-radius: 7px;
+}
+
+.gcGoomyContainer{
+	position: relative;
+	height: 400px;
+	width: 400px;
+}
+
+.gcGreatGoomy{
+	cursor: pointer;
+	position: absolute;
+	left: 30px;
+	top: 0px;
+	pointer-events: none;
+}
+
+.gcGoomyCount{
+	font-size: 24px;
+}
+
+.gcGoomyStats{
+	width: 500px;
+	margin: auto;
+	background-color: #ae85f8;
+	border: 2px solid #7c48fe;
+	border-radius: 7px;
+}
+
+.gcGoomyStatsDiv{ padding: 4px; }
+.gcGoomyStatsProgress{ margin: 0px 4px;}
+
+
+.plus_marker{
+	position: absolute;
+	pointer-events: none;
+	font-size: 24px;
+}
+
+
+
+.gcAboutC{
+	vertical-align: bottom;
+}
+
+.gcMsgBox{
+	position: absolute;
+	width: 400px;
+	padding: 20px;
+	display: none;
+	border: 1px solid black;
+	background-color: white;
+	z-index: 2;
+}
+
+.gcSmall{
+	font-size: 12px;
+}
+
+.gcSmaller{
+	font-size: 8px;
+}
+
+.gcDialogHeader{
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.gcIndicator{
+	font-weight: bold;
+}
+
+.gcContainer{
+	background-color: #ae85f8;
+	border: 2px solid #7c48fe;
+	border-radius: 7px;
+	margin: 10px;
+	padding-top: 16px;
+}
+
+
+
+.gcButton {
+	background-color: #ae85f8;
+	border: 2px solid #7c48fe;
+	border-radius: 3px;
+	font-size: 12pt;
+	padding: 4px 8px;
+	cursor: pointer;
+}
+
+.gcGreatGoomy {
+	cursor: pointer;
+}
+
+
+.gcItemgps{ font-size:75%; }
+.gcUdesc { font-size: 75%; }
+
+
+.gcUpgradeBar{
+	overflow: auto;
+	height: 250px;
+}
+
+.gcUpgradeBarDiv{
+	padding: 6px;
+	margin: 2px;
+	overflow: hidden;
+	cursor: pointer;
+	background-color: #ae85f8;
+	border: 2px solid #7c48fe;
+	border-radius: 7px;
+}

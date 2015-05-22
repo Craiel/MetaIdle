@@ -1,0 +1,107 @@
+{
+  "Name": "MetaIdle",
+  "Data": [
+    {
+      "Directory": "data\\content\\",
+      "FilterStrings": [
+        "*.xlsx"
+      ]
+    }
+  ],
+  "Templates": [
+    {
+      "Directory": "src\\client\\ui\\",
+      "FilterStrings": [
+        "*.html"
+      ],
+      "Option": 1
+    },
+    {
+      "Directory": "src\\modules\\",
+      "FilterStrings": [
+        "*.html"
+      ],
+      "Option": 1
+    },
+  ],
+  "Sources": [
+  	{
+      "Directory": "src\\common\\",
+      "FilterStrings": [ "system.js", "loader.js" ]
+    },
+    {
+      "Directory": "src\\client\\",
+      "FilterStrings": [ "init.js" ]
+    },
+    {
+      "Directory": "src\\common\\",
+      "FilterStrings": [
+        "*.js"
+      ],
+      "Option": 1
+    },
+    {
+      "Directory": "src\\data\\",
+      "FilterStrings": [
+        "*.js"
+      ],
+      "Option": 1
+    },
+    {
+      "Directory": "src\\modules\\",
+      "FilterStrings": [
+        "*.js"
+      ],
+      "Option": 1
+    },
+    {
+      "Directory": "src\\client\\",
+      "FilterStrings": [
+        "*.js"
+      ],
+      "Option": 1
+    }
+  ],
+  "StyleSheets": [
+    {
+      "Directory": "src\\client\\ui\\",
+      "FilterStrings": [ "*.css" ],
+      "Option": 1
+    },
+    {
+      "Directory": "src\\modules\\",
+      "FilterStrings": [ "*.css" ],
+      "Option": 1
+    },
+  ],
+  "Images": [
+	{
+	  "Directory": "data\\www\\images\\",
+	  "FilterStrings": [ "*" ],
+	  "Option": 1
+	}
+  ],
+  "Contents": [
+    {
+      "Directory": "data\\www\\",
+      "FilterStrings": [
+        "*"
+      ],
+      "Option": 1
+    },
+    {
+      "Directory": "data\\wwwDebug\\",
+      "FilterStrings": [
+        "*"
+      ],
+      "Option": 1
+    }
+  ],
+  "SourceTarget": "bin\\debug\\client.js",
+  "SourceMain": "src\\client\\main.js",
+  "TemplateTarget": "src\\data\\generated\\templates.js",
+  "DataTarget": "src\\data\\generated\\data.js",
+  "StyleSheetTarget": "bin\\debug\\client.css",
+  "ImageRoot": "data\\www\\images\\",
+  "ContentTarget": "bin\\debug\\"
+}

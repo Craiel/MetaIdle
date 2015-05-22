@@ -1,0 +1,16 @@
+{
+  "potion": {
+    "ref": "potion",
+    "name": "Potion",
+    "gils": 100,
+    "bonus": 100,
+    "zone": 1
+  },
+  "hi-potion": {
+    "ref": "hi-potion",
+    "name": "Hi-Potion",
+    "gils": 500,
+    "bonus": 500,
+    "zone": 7
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "1": {
+    "cloud": "It's not my problem.",
+    "barret": "The planet's dyin', Cloud!"
+  },
+  "2": {
+    "barret": "I don't care what it is! I'm gonna bust him up!",
+    "cloud": "No way! It's just a machine.",
+    "tifa": "THIS is from SOLDIER?"
+  },
+  "3": {
+    "aerith": "Well, the worst is over...",
+    "cloud": "You alright?",
+    "tifa": "Man! This is terrible."
+  },
+  "4": {
+    "barret": "Tifa! Cloud! You came!",
+    "cloud": "Wait! You hear something.... above us?",
+    "tifa": "Here they come!"
+  },
+  "5": {
+    "barret": "Ok! We gonna rock!",
+    "cloud": "Did you see it?",
+    "redxiii": "...",
+    "tifa": "I hope Aerith is all right."
+  },
+  "6": {
+    "aerith": "Yeah, I'm all right.",
+    "barret": "The hell's goin' on!?",
+    "cloud": "Something's wrong.",
+    "redxiii": "No human could've done this.",
+    "tifa": "...Sephiroth is alive?"
+  },
+  "7": {
+    "aerith": "Seems like a lot of this doesn't make sense.",
+    "barret": "Yo, c'mon let's go!",
+    "cloud": "......I want to know the truth.",
+    "redxiii": "What a fascinating story.....",
+    "tifa": "Official records state Sephiroth is dead."
+  }
+}

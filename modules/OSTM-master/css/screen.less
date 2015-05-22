@@ -1,0 +1,49 @@
+.screen {
+    position: absolute;
+    left: @statWidth;
+    right: @itemBarWidth;
+    top: 0px;
+    bottom: 0px;
+    .scrolls;
+    background-color: #aaa;
+    padding: 12px;
+}
+
+.adventure-screen {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    box-shadow: 0px 0px 32px #222 inset;
+    padding: inherit;
+}
+
+.field {
+    overflow: hidden;
+    padding: 0;
+
+    &.grass {
+        background-color: #7b3;
+    }
+    &.sand {
+        background-color: #a92;
+    }
+    &.forest {
+        background-color: #142;
+    }
+}
+
+.store {
+    background-color: orange;
+}
+
+.options {
+    background-color: #445;
+    color: white;
+}
+
+.changelist {
+    background-color: #111;
+    color: white;
+}

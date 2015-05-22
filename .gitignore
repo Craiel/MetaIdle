@@ -1,0 +1,16 @@
+# Webstorm
+.idea
+
+# system
+Thumbs.db
+.DS_Store
+.~lock*
+
+# misc
+Logs
+
+# grunt and node.js stuff
+bin
+tmp
+node_modules
+npm-debug.log

@@ -1,0 +1,160 @@
+<html>
+  <head>
+    <title>CraftClicker 1.38 beta</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/inventory.js"></script>
+    <script type="text/javascript" src="js/player.js"></script>
+    <script type="text/javascript" src="js/resources.js"></script>
+    <script type="text/javascript" src="js/items.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
+    <link type="text/css" href="css/styles.css" rel="stylesheet"  />
+  </head>
+  <body>
+    <div id="container">
+    <div class="floatRight">
+      <span><input id="autosave" type="checkbox" checked="checked" /><label for="autosave">Autosave</label></span>
+      <button id="save">Save</button>
+      <button id="load">Load</button>
+      <button id="export">Export</button>
+      <button id="import">Import</button>
+      <button id="reset">Reset</button>
+    </div>
+      <div class="floatLeft">
+        <div id="gatherActions">
+          <div>
+            <div id="gatherContainer">
+              <img id="gather" src="images/pick-disabled.png" alt="Gather" title="Gather" onclick="game.step();" />
+              <div id="durability"></div>
+            </div>
+          </div>
+          <div><button id="gatherLink" onclick="game.step();">Gather with <i id="currentPick">Bare Hands</i></button></div>
+        </div>
+        <div id="recipes">
+          <div id="experience"class="smallBar">
+            <div id="experienceBar" class="smallBar">
+                <div id="experienceBarText" class="smallBar smallBarText"></div>
+            </div>
+          </div>
+          <div id="recipeFilters">
+            <select id="recipeCategoryFilter" onchange="game.drawRecipes();">
+              <option value="All">All Categories</option>
+            </select>
+            <label><input id="haveResources" type="checkbox" onchange="game.drawRecipes();"/>Have Resources</label>
+            <input id="recipeSearch" onkeyup="game.drawRecipes();"></input>
+          </div>
+          <div id="recipeScroll">
+            <ul id="recipeCategories">
+            </ul>
+          </div>
+          <div id="recipeRequirementsScroll">
+            <div id="recipeRequirements"></div>
+          </div>
+          <div id="actions">
+            <input id="craftAll" type="button" value="Craft All" onclick="game.craftAll()" disabled="disabled"></input>
+            <input id="craftAmount" value="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></input>
+            <input id="craft" type="button" value="Craft" onclick="game.craft($('#craftAmount').val())" disabled="disabled"></input>
+          </div>
+        </div>
+      </div>
+      <div id="inventory">
+        <table id="inventoryTable">
+          <thead>
+            <tr>
+              <th colspan="4">Backpack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="i1"></td>
+              <td id="i2"></td>
+              <td id="i3"></td>
+              <td id="i4"></td>
+            </tr>
+            <tr>
+              <td id="i5"></td>
+              <td id="i6"></td>
+              <td id="i7"></td>
+              <td id="i8"></td>
+            </tr>
+            <tr>
+              <td id="i9"></td>
+              <td id="i10"></td>
+              <td id="i11"></td>
+              <td id="i12"></td>
+            </tr>
+            <tr>
+              <td id="i13"></td>
+              <td id="i14"></td>
+              <td id="i15"></td>
+              <td id="i16"></td>
+            </tr>
+            <tr>
+              <td colspan="4" class="moneyRow">
+                <div class="floatLeft"><a href="#" id="sortBackpack">Sort</a></div>
+                <div id="money"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="forges">
+          <h2>Forges</h2>
+          <table>
+            <thead>
+              <tr id="forgeNames">
+                <th id="fn0">Empty</th>
+                <th id="fn1">Empty</th>
+                <th id="fn2">Empty</th>
+                <th id="fn3">Empty</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="forgeList">
+                <td id="f0"><img src="images/forge-disabled.png" /></td>
+                <td id="f1"><img src="images/forge-disabled.png" /></td>
+                <td id="f2"><img src="images/forge-disabled.png" /></td>
+                <td id="f3"><img src="images/forge-disabled.png" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="help">
+          <h4>Shortcuts</h4>
+          <table>
+            <tr>
+              <td class="key">g</td>
+              <td>Gather resources</td>
+            </tr>
+            <tr>
+              <td class="key">[Space]</td>
+              <td>Craft selected recipe (or cancel if crafting)</td>
+            </tr>
+            <tr>
+              <td class="key">a</td>
+              <td>Craft all of selected recipe</td>
+            </tr>
+            <tr>
+              <td class="key">1-9</td>
+              <td>Craft <i>n</i> of selected</td>
+            </tr>
+            <tr>
+              <td class="key">Right click</td>
+              <td>Sell 1 from backpack</td>
+            </tr>
+            <tr>
+              <td class="key">Shift+right click</td>
+              <td>Sell stack from backpack</td>
+            </tr>
+            <tr>
+              <td class="key">Ctrl+Shift+right click</td>
+              <td>Sell all from backpack</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div id="exportContainer" class="floatRight">
+        <a id="exportHide" href="#" class="darkLink">Hide</a><br />
+        <textarea id="exportData" readonly="readonly" rows="10" cols="100"></textarea>
+      </div>
+    </div>
+  </body>
+</html>

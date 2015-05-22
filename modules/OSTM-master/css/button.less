@@ -1,0 +1,117 @@
+.button {
+    @bgColor: #6ce9c1;
+    @bgColorSelected: #f0b038;
+    @bgColorInactive: #777;
+
+    @bgHoverLighten: 17%;
+    @bgPressDarken: 24%;
+
+    display: inline-table;
+    min-width: 120px;
+    min-height: 50px;
+    height: auto;
+    border-radius: 11px;
+    border: 1px solid black;
+    margin: 1.5px 0px;
+    padding: 3px;
+    transition: 0.25s;
+    z-index: 5;
+    cursor: pointer;
+    color: black;
+    font-size: 20px;
+
+    .shadow(@baseColor; @darkenAmount: 40%) {
+        box-shadow: 1px -1px 7px darken(@baseColor, @darkenAmount) inset;    
+    }
+    .buttonActions(@baseColor) {
+        background-color: @baseColor;
+        .shadow(@baseColor);
+        &:hover:not(.inactive) {
+            @color: lighten(@baseColor, @bgHoverLighten);
+            background-color: @color;
+        }
+        &:active:not(.inactive) {
+            @color: darken(@baseColor, @bgPressDarken);
+            background-color: @color;
+            transition: 0.1s;
+        }
+    }
+
+    .buttonActions(@bgColor);
+    &.selected {
+        .buttonActions(@bgColorSelected);
+    }
+    // Resource Spend buttons
+    &.xp {
+        .buttonActions(@xpColor);
+    }
+    &.gold {
+        .buttonActions(@goldColor);
+    }
+    &.research {
+        .buttonActions(@researchColor);
+    }
+    &.iron {
+        .buttonActions(@ironColor);
+    }
+    &.wood {
+        .buttonActions(@woodColor);
+    }
+    &.skill {
+        .buttonActions(@skillColor);
+    }
+
+    &.inactive {
+        .buttonActions(@bgColorInactive);
+        cursor: auto;
+    }
+
+    .content {
+        display: table-cell;
+        text-align: center;
+        width: 100%;
+        vertical-align: middle;
+        pointer-events: none;
+    }
+
+}
+
+.description-box {
+    display: table-cell;
+    position: absolute;
+    min-width: 200px;
+    max-width: 400px;
+    min-height: 80px;
+    padding: 6px;
+    background-color: #888;
+    border: 2px solid #333;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+.stat-bar .button,
+.item-bar .button {
+    width: 75%;
+    font-size: 18px;
+    display: table;
+    margin: 1.5px auto;
+}
+
+.shrine .button {
+    vertical-align: middle;
+}
+.blacksmith,
+.skills {
+    .button {
+        vertical-align: top;
+    }
+}
+
+.header-buttons .button {
+    height: 80%;
+}
+
+.store .button,
+.village .button {
+    width: 240px;
+}

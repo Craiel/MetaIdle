@@ -1,0 +1,75 @@
+@itemBarWidth: 220px;
+.item-bar {
+    float: right;
+    width: @itemBarWidth;
+    height: calc(~"100%" - @adContainerHeight);
+    background: linear-gradient(-70deg, #813, #d63);
+    .scrolls;
+
+    z-index: 1;
+}
+
+.item-container,
+.attack-container {
+    div {
+        text-align: center;
+    }
+
+    h3 {
+        margin: 0px;
+    }
+}
+
+.weapon-container,
+.skill-container {
+    overflow: auto;
+    display: inline-table;
+    width: 100%;
+    margin: 5px;
+
+    ul {
+        list-style-type: none;
+        padding: 0px;
+        margin: 0px;
+
+        li {
+            margin: 2px;
+        }
+    }
+
+    #name {
+        display: table-cell;
+        width: 160px;
+        text-align: center;
+        vertical-align: middle;
+    }
+    #equip {
+        width: 70px;
+        min-width: 0px;
+    }
+
+    #description {
+        display: inline-block;
+    }
+    #scaling {
+        display: inline-table;
+        width: 110px;
+    }
+    #base {
+        display: inline-table;
+        width: 130px;
+    }
+    #upgrades {
+        display: inline-table;
+        font-style: italic;
+    }
+
+    .physical {
+        color: #d22;
+        font-weight: bold;
+    }
+    .mental {
+        color: #22d;
+        font-weight: bold;
+    }
+}

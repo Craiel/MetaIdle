@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CrystalNexon</title>
+<link href="./main_files/style.css" type="text/css" rel="stylesheet">
+<script async="" src="./main_files/analytics.js"></script><script type="text/javascript" src="./main_files/jquery-1.10.2.min.js"></script><style type="text/css"></style>
+<script type="text/javascript" src="./main_files/const.js"></script>
+<script type="text/javascript" src="./main_files/gameState.js"></script>
+<script type="text/javascript" src="./main_files/stats.js"></script>
+<script type="text/javascript" src="./main_files/data.js"></script>
+<script type="text/javascript" src="./main_files/game.js"></script>
+<script type="text/javascript" src="./main_files/utils.js"></script>
+</head>
+<body style="">
+<div id="info_bar">
+	CrystalNexon (based on SoulHarvester)
+	<span class="right">
+		<a href="http://www.reddit.com/r/soulharvester/">Subreddit</a>
+					Current version: <span id="version">2013-11-27(8)</span></span>
+</div>
+<div id="content">
+	<div id="dna_container">
+		<div id="dna_count">
+			<p>
+				<span id="dna_current">NaN</span> DNA
+				<br>
+				<span id="dna_second">NaN</span> DNA per second<br>
+			</p>
+		</div>
+		<button type="button" id="dnaClick">Collect DNA</button>
+		
+		<div id='dna_creatures'>
+			<div id="mon001">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/nopic.png">
+					</td>
+					<td>
+						<span id="mon001_title">NaN</span> - <span id="mon001_count">NaN</span>
+					</td>
+				</tr>
+				<tr>
+					<td id="mon001_price">NaN</td>
+				</tr>
+				</tbody></table>
+			</div>
+			<div id="mon002">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/nopic.png">
+					</td>
+					<td>
+						<span id="mon002_title">NaN</span> - <span id="mon002_count">NaN</span>
+					</td>
+				</tr>
+				<tr>
+					<td id="mon002_price">NaN</td>
+				</tr>
+				</tbody></table>
+			</div>
+			
+			<div id="mon011">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/nopic.png">
+					</td>
+					<td>
+						<span id="mon011_title">NaN</span> - <span id="mon011_count">NaN</span>
+					</td>
+				</tr>
+				<tr>
+					<td id="mon011_price">NaN</td>
+				</tr>
+				</tbody></table>
+			</div>
+			<div id="mon012">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/nopic.png">
+					</td>
+					<td>
+						<span id="mon012_title">NaN</span> - <span id="mon012_count">NaN</span>
+					</td>
+				</tr>
+				<tr>
+					<td id="mon012_price">NaN</td>
+				</tr>
+				</tbody></table>
+			</div>
+			
+			<div id="mon021">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/nopic.png">
+					</td>
+					<td>
+						<span id="mon021_title">NaN</span> - <span id="mon021_count">NaN</span>
+					</td>
+				</tr>
+				<tr>
+					<td id="mon021_price">NaN</td>
+				</tr>
+				</tbody></table>
+			</div>
+			<div id="mon022">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/nopic.png">
+					</td>
+					<td>
+						<span id="mon022_title">NaN</span> - <span id="mon022_count">NaN</span>
+					</td>
+				</tr>
+				<tr>
+					<td id="mon022_price">NaN</td>
+				</tr>
+				</tbody></table>
+			</div>
+			
+			<div id="mon031">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/nopic.png">
+					</td>
+					<td>
+						<span id="mon031_title">NaN</span> - <span id="mon031_count">NaN</span>
+					</td>
+				</tr>
+				<tr>
+					<td id="mon031_price">NaN</td>
+				</tr>
+				</tbody></table>
+			</div>
+			<div id="mon032">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/nopic.png">
+					</td>
+					<td>
+						<span id="mon032_title">NaN</span> - <span id="mon032_count">NaN</span>
+					</td>
+				</tr>
+				<tr>
+					<td id="mon032_price">NaN</td>
+				</tr>
+				</tbody></table>
+			</div>
+		</div>
+	</div>
+	
+	<div id="base">
+		<ul class="tabs">
+			<li><input type="radio" checked="" name="tabs" id="tabResearch"><label for="tabResearch">Research</label>
+			<div id="tab-content1" class="tab-content animated fadeIn">
+				<div id="research">
+					 Research:<br>
+					<button type="button" title="Periodically create a free slime" id="slime_repro" style="display: none;">Slime reproduction - (100,000 Souls)</button>
+				</div>
+				<hr>
+				<div>
+					Research acquired:<br>
+					<p id="research_acquired"></p>
+				</div>
+			</div>
+			</li>
+			<li><input type="radio" checked="" name="tabs" id="tabAchievements"><label for="tabAchievements">Achievements</label>
+			<div id="tab-content2" class="tab-content animated fadeIn">
+				<div id="achievements">
+					Achievements unlocked (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>) :<br>
+					<p id="achievements_details"></p>
+				</div>
+			</div>
+			</li>
+			<li><input type="radio" checked="" name="tabs" id="tabBase"><label for="tabBase">Base</label>
+			<div id="tab-content3" class="tab-content animated fadeIn">
+				<hr>
+				<div id="base_info">
+					<span>
+			Your Base is currently level <span id="base_level">NaN</span> <br>
+			You need <span id="base_xp">NaN</span> xp to reach the next level
+		</span><br>
+		<hr>
+					Rooms:<br>
+					<p id="rooms_unlocked"></p>
+				</div>
+			</div>
+			</li><li><input type="radio" checked="" name="tabs" id="tabStats"><label for="tabStats">Stats</label>
+			<div id="tab-content4" class="tab-content animated fadeIn">
+				<div id="currentstats">
+					 DNA per click : <span id="currstat_dpc">NaN</span><br>
+					 XP per second: <span id="currstat_xps">NaN</span><br>
+					 DNA collected : <span id="currstat_dna">NaN</span><br>
+					 DNA from clicks : <span id="currstat_clicksdna">NaN</span><br>
+					<br>
+				</div>				
+				<div id="totalstats">
+					 Total DNA collected : <span id="totalstat_dna">NaN</span><br>
+					 Total DNA from clicks : <span id="totalstat_clicksdna">NaN</span><br>
+					<br>
+				</div>
+				<div id="saves">
+					<button type="button" id="save">Save</button>
+					<button type="button" id="load">Load</button>
+					<button type="button" id="reset">Reset(No confirmation, NO PRESTIGE SYSTEM YET)</button>
+				</div>
+				<!--<div id="infos">
+						Donations are welcome but are not needed for anything(be it the server or anything in game).
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick">
+						<input type="hidden" name="hosted_button_id" value="MTALYKSNU73HN">
+						<input type="image" src="./main_files/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+						<img alt="" border="0" src="./main_files/pixel.gif" width="1" height="1">
+					</form>
+				</div>-->
+			</div>
+			</li>
+		</ul>
+	</div>
+	
+	<div id="magic_container">
+		<div class="align">
+		<div id="magic_count">
+			<span id="current_magic">1,183,409.0 Magic</span><br>
+			<span id="mpm">2885 Magic per minute</span><br>
+		</div>
+		<div id="monsters_magic">
+			<div id="mana_beast">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img src="./main_files/nopic.png">
+					</td>
+					<td>
+						Mana Beast - <span id="mana_beast_current">46</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span id="mana_beast_price">2,869,859.2</span> Magic
+					</td>
+				</tr>
+				</tbody></table>
+			</div>
+			<div id="warlock">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/nopic.png">
+					</td>
+					<td>
+						Warlock - <span id="warlock_current">45</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span id="warlock_price">11,479,437.0</span> Magic
+					</td>
+				</tr>
+				</tbody></table>
+			</div>
+			<div id="lich">
+				<table>
+				<tbody><tr>
+					<td rowspan="2">
+						<img width="64px" height="64px" src="./main_files/livingDeadWizard2.gif">
+					</td>
+					<td>
+						Lich - <span id="lich_current">45</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span id="lich_price">22,958,874.0</span> Magic
+					</td>
+				</tr>
+				</tbody></table>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+</body></html>
